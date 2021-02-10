@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "SmartGroceryShopping"
+    }
+  },
+  "defaultProject": "SmartGroceryShopping",
+  "cli": {
+    "analytics": false
+  }
 }
