@@ -8,7 +8,7 @@
     </mat-datepicker>
   </mat-form-field>
   <div class="example-button-container">
-    <button mat-fab color="accent" aria-label="Example icon button with a plus one icon" (click)="createList()">
+    <button mat-fab color="accent" aria-label="Example icon button with a plus one icon" [routerLink]="['/create-list']" routerLinkActive="router-link-active" >
       <mat-icon>add</mat-icon>
     </button>
   </div>

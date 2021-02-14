@@ -81,24 +81,5 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  public createList() {
-    this.openDialogCreateList();
-  }
-
-  openDialogCreateList() {
-    const dialogRef = this.dialog.open(CreateGroceryListComponent, {
-      width: '900px',
-      data: {}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log('*', result, '*');
-      this.resultDialog = result;
-      console.log(result);
-      this.adminService.addGroceryList(this.resultDialog).subscribe(
-        (res) => { this.groceryListsArray.push(res); },
-        (err) => { alert(err.error); }
-      );
-    });
-  }
+  
 }
