@@ -1,0 +1,17 @@
+.wrapper{
+  margin-top: 20px;
+}
+
+table {
+  width: 70%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.example-month-picker .mat-calendar-period-button {
+  pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+  display: none;
+}
