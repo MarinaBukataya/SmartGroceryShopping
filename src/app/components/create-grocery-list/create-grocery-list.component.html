@@ -1,101 +1,69 @@
-<div class="container">
-  <mat-card class="mat-elevation-z8">
-    <mat-toolbar color="accent"
-      style="box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
-      <div align="center" style="color:white;text-align: right;">
-        Codingvila | Angular 11 Application using Web API With Material Design
+<mat-card style="text-align: center;">
+  <mat-card-title>New list</mat-card-title>
+  <mat-card-content>
+    <form #groceryListForm="ngForm">
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <!-- <mat-form-field>
+          <input matInput placeholder="Grocery List Id" #idInfo="ngModel" [(ngModel)]="groceryList.id" name="id">
+        </mat-form-field> -->
+
+        <mat-form-field appearance="fill">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker3" [value]="groceryList.date">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Status" #statusInfo="ngModel" [(ngModel)]="groceryList.status" name="status">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Consumer name" #consumerNameInfo="ngModel" [(ngModel)]="groceryList.consumerName"
+            name="consumerName">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Shop name" #shopNameInfo="ngModel" [(ngModel)]="groceryList.shopName"
+            name="shopName">
+        </mat-form-field>
       </div>
-    </mat-toolbar>
-    <br><br>
-    <mat-card-content>
-      <form>
-        <table>
-          <tr>
-            <td class="tbl1">
-              <mat-form-field>
-                <input [disabled] matInput [(ngModel)]="groceryList.id" placeholder="Grocery List Id">
-              </mat-form-field>
-            </td>
-            <td class="tbl1">
-              <mat-form-field appearance="fill">
-                <mat-label> Date </mat-label>
-                <input matInput [matDatepicker]="picker3" (dateInput)="inputEvent($event)"
-                  (dateChange)="changeEvent($event)" [(ngModel)]="groceryList.date">
-                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                <mat-datepicker #picker3></mat-datepicker>
-              </mat-form-field>
-            </td>
-            <td class="tbl1">
-              <mat-form-field>
-                <input [disabled] matInput [(ngModel)]="groceryList.status" placeholder="Status">
-              </mat-form-field>
-            </td>
-            <td class="tbl1">
-              <mat-form-field class="demo-full-width">
-                <input formControlName="ConsumerName" matTooltip="Enter Consumer name" matInput
-                  placeholder="Consumer name" autocomplete="off">
-              </mat-form-field>
-            </td>
-            <td class="tbl1">
-              <mat-form-field class="demo-full-width">
-                <input formControlName="ShopName" matTooltip="Enter Shop name" matInput placeholder="Shop name"
-                  autocomplete="off">
-              </mat-form-field>
-            </td>
+    </form>
+  </mat-card-content>
 
-          </tr>
-          <tr>
-            <td class="tbl1">
-              <mat-form-field class="demo-full-width">
-                <input matTooltip="Enter Item name" formControlName="Item name" matInput placeholder="Item name"
-                  autocomplete="off">
-              </mat-form-field>
-            </td>
-            <td class="tbl1">
-              <mat-form-field>
-                <mat-label>Category</mat-label>
-                <mat-select formControlName="Category" matTooltip="Select Category" autocomplete="off">
-                  <mat-option>
-
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td class="tbl1">
-              <mat-form-field class="demo-full-width">
-                <input matTooltip="Enter Quantity" formControlName="Quantity" matInput placeholder="Quantity"
-                  autocomplete="off">
-              </mat-form-field>
-            </td>
-            <td class="tbl1">
-              <mat-form-field class="demo-full-width">
-                <input matTooltip="Enter Unit" formControlName="Unit" matInput placeholder="Unit" autocomplete="off">
-              </mat-form-field>
-            </td>
-            <td class="tbl1">
-              <mat-form-field class="demo-full-width">
-                <input matTooltip="Enter Price" formControlName="Price" matInput placeholder="Price" autocomplete="off">
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td class="content-center">
-              <button type="submit" mat-raised-button color="accent" matTooltip="Submit">Submit</button>
-
-            </td>
-            <td>
-
-            </td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-        <br><br>
-
-
-
-
-      </form>
-    </mat-card-content>
+  <button type="button" mat-raised-button  (click)="addItem()"><mat-icon>add box</mat-icon>Add item</button>
+  <br>
+  <br>
+  <mat-card>
+    <table mat-table>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell> item.id </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell> item.name </td>
+      </ng-container>
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef> Category </th>
+        <td mat-cell> item.category </td>
+      </ng-container>
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+        <td mat-cell> item.quantity </td>
+      </ng-container>
+      <ng-container matColumnDef="unit">
+        <th mat-header-cell *matHeaderCellDef> Unit </th>
+        <td mat-cell> item.unit </td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell> item.price </td>
+      </ng-container>
+      <ng-container matColumnDef="cost">
+        <th mat-header-cell *matHeaderCellDef> Cost </th>
+        <td mat-cell> item.cost </td>
+      </ng-container>
+    </table>
   </mat-card>
-</div>
+</mat-card>
+

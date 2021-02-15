@@ -7,6 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -17,6 +18,7 @@ import { Interceptor } from './interceptors/interceptor';
 import { AdminComponent, MY_FORMATS } from './components/admin/admin.component';
 import { ViewGroceryListComponent } from './components/view-grocery-list/view-grocery-list.component';
 import { CreateGroceryListComponent } from './components/create-grocery-list/create-grocery-list.component';
+import { AddItemComponent } from './components/add-item/add-item.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +27,12 @@ import { CreateGroceryListComponent } from './components/create-grocery-list/cre
     LoginComponent,
     AdminComponent,
     ViewGroceryListComponent,
-    CreateGroceryListComponent
+    CreateGroceryListComponent,
+    AddItemComponent
+   
+
   ],
+ 
   imports: [
     BrowserModule,
     AppRoutingModule,

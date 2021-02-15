@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Add item</h1>
+
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="item.id" placeholder="Item Id">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="item.name" placeholder="Item name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="item.category" placeholder="Category">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="item.quantity" min="0" placeholder="Quantity">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="item.unit" placeholder="Unit">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="item.cost" placeholder="Cost">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()"> Close </button>
+  <button mat-button [matDialogClose]="true" cdkFocusInitial>Save</button>
+</div>
