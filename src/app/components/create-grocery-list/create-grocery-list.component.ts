@@ -1,43 +1,119 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { GroceryList } from 'src/app/models/GroceryList';
 import { Item } from 'src/app/models/Item';
 import { AdminService } from 'src/app/services/admin.service';
-import { AddItemComponent } from '../add-item/add-item.component';
+import { PrintService } from 'src/app/services/print.service';
+import { AddItemComponent } from '../add-update-item/add-item.component';
+
+
 
 @Component({
   selector: 'app-create-grocery-list',
   templateUrl: './create-grocery-list.component.html',
   styleUrls: ['./create-grocery-list.component.scss']
 })
+
 export class CreateGroceryListComponent implements OnInit {
+
+  exampleForm: FormGroup;
+  itemsArray: any = new MatTableDataSource<Item>();
   groceryList = new GroceryList();
   item: Item;
-  columnsToDisplay = ['id', 'name', 'category', 'quantity', 'unit', 'price', 'cost'];
-  resultDialog: Item;
-  items: Item[] = [];
-  constructor(public dialog: MatDialog, private adminService: AdminService) { }
+  public resultDialog: Item;
+  columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'updateItem', 'deleteItem'];
+  todayDate: Date = new Date();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() {
+    this.itemsArray.paginator = this.paginator;
+  }
+
+  constructor(public dialog: MatDialog, private adminService: AdminService, public printService: PrintService) { }
 
   ngOnInit(): void {
+    this.exampleForm = new FormGroup({
+      Date: new FormControl(this.todayDate),
+      Status: new FormControl('ACTIVE'),
+      ConsumerName: new FormControl('', Validators.required),
+      ShopName: new FormControl(),
+    });
   }
 
-  public addItem(): void {
-    this.openDialog();
+  public addItem() {
+    this.openDialog(null);
   }
-  openDialog() {
+
+  public updateItem(item: Item) {
+    this.openDialog(item);
+  }
+
+  public deleteItem(itemId: number) {
+    this.adminService.deleteItem(itemId).subscribe(
+      () => { this.itemsArray.data = this.itemsArray.data.filter(i => i.id !== itemId); },
+      (err) => { alert(err.message) }
+    )
+  }
+  openDialog(item: Item) {
+    let type: string;
+    if (item) {
+      type = 'Update';
+
+    } else {
+      type = 'Add';
+    }
     const dialogRef = this.dialog.open(AddItemComponent, {
       width: '300px',
+      data: { item, type }
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log('*', result, '*');
-      this.resultDialog = result;
-
-      this.adminService.addItem(this.resultDialog).subscribe(
-        (res) => { this.items.push(res); },
-        (err) => { alert(err.message); }
-      );
+      if (result) {
+        this.resultDialog = result;
+        if (type === 'Add') {
+          this.resultDialog.cost = this.resultDialog.price * this.resultDialog.quantity;
+          this.adminService.addItem(this.resultDialog).subscribe(
+            (res) => { this.itemsArray.data.push(res); this.itemsArray._data.next(this.itemsArray.data); },
+            (err) => { alert(err.message); }
+          );
+        } else {
+          this.resultDialog.cost = this.resultDialog.price * this.resultDialog.quantity;
+          this.adminService.updateItem(this.resultDialog).subscribe(
+            (res) => {
+              const idx = this.itemsArray.data.findIndex(i => i.id === item.id);
+              this.itemsArray.data.splice(idx, 1, res);
+              this.itemsArray._data.next(this.itemsArray.data);
+            },
+            (err) => { alert(err.message); }
+          );
+        }
+      }
     });
+  }
+
+  getTotalCost() {
+    return this.itemsArray.data.map(t => t.cost).reduce((acc, value) => acc + value, 0);
+  }
+
+
+  submitForm() {
+    this.groceryList.date = this.exampleForm.get('Date').value;
+    this.groceryList.status = this.exampleForm.get('Status').value;
+    this.groceryList.consumerName = this.exampleForm.get('ConsumerName').value;
+    this.groceryList.totalCost = this.getTotalCost();
+    this.groceryList.shopName = this.exampleForm.get('ShopName').value;
+    this.groceryList.items = this.itemsArray.data;
+    this.adminService.addGroceryList(this.groceryList).subscribe(
+      (res) => { },
+      (err) => { alert(err.message); }
+    );
+  }
+
+  printList() {
+    this.columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost'];
+    this.printService.printDocument('create-list');
   }
 }

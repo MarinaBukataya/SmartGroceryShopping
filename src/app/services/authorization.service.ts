@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
+  private loggedIn = new BehaviorSubject<boolean>(false);
 
   private token: string;
 
+
+
   constructor() { }
+
+  get isLoggedIn() {
+    return this.loggedIn.asObservable(); 
+  }
+
 
   public setToken(token: string) {
     console.log(token);
@@ -21,5 +30,6 @@ export class AuthorizationService {
   public deleteToken() {
     localStorage.removeItem('token');
   }
-  
+
+
 }

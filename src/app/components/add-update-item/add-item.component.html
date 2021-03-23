@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>{{type}} item</h1>
+
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="item.name" placeholder="Name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="item.brand" placeholder="Brand">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [(ngModel)]="item.category" placeholder="Category">
+      <mat-option *ngFor="let key of keys; index as i" [value]="i">{{category[key]}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="item.quantity" type="number" min="0" placeholder="Quantity">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [(ngModel)]="item.unit" placeholder="Unit">
+      <mat-option *ngFor="let key of keys1; index as i" [value]="i">{{unit[key]}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="item.price" type="number" min="0" placeholder="Price">
+  </mat-form-field>
+  <mat-form-field *ngIf="type === 'Update'">
+    <input matInput [(ngModel)]="item.date" [matDatepicker]="picker" placeholder="Date" >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()"> Close </button>
+  <button mat-button [matDialogClose]="item" cdkFocusInitial>Save</button>
+</div>

@@ -1,0 +1,101 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
+    <mat-nav-list class="dashboard">
+      <a mat-list-item [routerLink]="['/admin']"><span class="material-icons">
+          local_grocery_store
+        </span> Grocery Lists </a>
+      <a mat-list-item [routerLink]="['/consumers']"><span class="material-icons">face</span> Consumers </a>
+      <a mat-list-item [routerLink]="['/items']"><span class="material-icons">
+          reorder
+        </span> Items </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item [routerLink]="['']" (click)=logout()>
+        <mat-icon>logout</mat-icon> Log out
+      </a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <div class="example-sidenav-content">
+    <div class="wrapper" fxLayout="row" fxLayoutAlign="space-around center">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Months" [formControl]="date" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker (monthSelected)="monthSelected($event)" startView="multi-year"></mat-datepicker>
+      </mat-form-field>
+      <ng-container *ngIf="type.value === 'ALL'; else elseTemplate">
+        <p style="font-family: Blenda; font-size:3vw; width:300px; text-align:center;"> This month you spent
+          {{ monthlyExpenses | currency}}
+        </p>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <p style="font-family: Blenda; font-size:3vw; width:300px; text-align:center;"> This month you spent
+          {{ monthlyExpensesByCategory | currency}} on {{ type.value }}
+        </p>
+      </ng-template>
+      <mat-form-field>
+        <mat-select (selectionChange)="categorySelected($event.value)" placeholder="Categories" [formControl]="type">
+          <mat-option [value]="'ALL'">ALL</mat-option>
+          <mat-option *ngFor="let key of keys; index as i" [value]="key">{{category[key]}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="grid-container" style="text-align:center;">
+      <mat-grid-list cols="2" rowHeight="400px">
+        <mat-grid-tile>
+          <ng-container *ngIf="type.value === 'ALL'; else elseTemplate1">
+            <div>
+              <mat-title style="font-family: Blenda; font-size:2vw;"> Items you bought </mat-title>
+              <br>
+              <br>
+              <app-chart [doughnutChartLabels]="chartLabels" [doughnutChartData]="chartData"></app-chart>
+            </div>
+          </ng-container>
+          <ng-template #elseTemplate1>
+            <div>
+              <table mat-table [dataSource]="items" class="mat-elevation-z8">
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Item </th>
+                  <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                  <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                  <td mat-cell *matCellDef="let item"> {{item.quantity}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cost">
+                  <th mat-header-cell *matHeaderCellDef> Cost </th>
+                  <td mat-cell *matCellDef="let item"> {{item.cost}} </td>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef> Date </th>
+                  <td mat-cell *matCellDef="let item"> {{item.date}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+              </table>
+            </div>
+          </ng-template>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <ng-container *ngIf="type.value === 'ALL'; else elseTemplate2">
+            <div>
+              <mat-title style="font-family: Blenda; font-size:2vw;"> from these categories </mat-title>
+              <br>
+              <br>
+              <app-chart [doughnutChartLabels]="categoriesChartLabels" [doughnutChartData]="categoriesChartData">
+              </app-chart>
+            </div>
+          </ng-container>
+          <ng-template #elseTemplate2>
+            <div>
+              <app-chart [doughnutChartLabels]="itemsPerCategoryChartLabels"
+                [doughnutChartData]="itemsPerCategoryChartData"></app-chart>
+            </div>
+          </ng-template>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+    </div>
+  </div>
+</mat-sidenav-container>

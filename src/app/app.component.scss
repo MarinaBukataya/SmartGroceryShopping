@@ -1,0 +1,21 @@
+.image {
+  height: 100%;
+  background-size: cover;
+  width: auto;
+  background-image:
+    /*linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),*/
+    url("/../assets/Background.jpg");
+  background-position: 50% 50%;
+}
+
+div.image {
+  position: relative;
+}
+
+div.content {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}

@@ -1,51 +1,92 @@
-<div class="wrapper" fxLayout="row" fxLayoutAlign="space-around center">
-  <mat-form-field appearance="fill">
-    <mat-label>This month's grocery lists</mat-label>
-    <input matInput [matDatepicker]="dp" [formControl]="date">
-    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-    <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
-      (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
-    </mat-datepicker>
-  </mat-form-field>
-  <div class="example-button-container">
-    <button mat-fab color="accent" aria-label="Example icon button with a plus one icon" [routerLink]="['/create-list']" routerLinkActive="router-link-active" >
-      <mat-icon>add</mat-icon>
-    </button>
+<mat-sidenav-container class="example-sidenav-container">
+  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
+    <mat-nav-list class="dashboard">
+      <a mat-list-item [routerLink]="['/consumers']"><span class="material-icons">face</span> Consumers </a>
+      <a mat-list-item [routerLink]="['/items']"><span class="material-icons">reorder</span> All items </a>
+      <a mat-list-item [routerLink]="['/statistics']"><span class="material-icons">donut_small</span> Statistics </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item [routerLink]="['']" (click)=logout()><mat-icon>logout</mat-icon> Log out </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <div class="example-sidenav-content">
+    <div class="wrapper" fxLayout="row" fxLayoutAlign="space-around center">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a month" [formControl]="date" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker (monthSelected)="monthSelected($event)" startView="multi-year"></mat-datepicker>
+      </mat-form-field>
+      <div class="example-button-container">
+        <button mat-fab color="warn" aria-label="Example icon button with a plus one icon"
+          [routerLink]="['/create-list']" [disabled]="isRed()" matTooltip="Create a list" [matTooltipPosition]="'right'"
+          matTooltipClass="custom-tooltip-blue">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+
+
+    <table mat-table [dataSource]="groceryListsArray" matSort>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let groceryList"
+          [ngClass]="isPastDate(groceryList.date) && groceryList.status === 'ACTIVE'?'red':'null'">
+          {{groceryList.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let groceryList"
+          [ngClass]="isPastDate(groceryList.date) && groceryList.status === 'ACTIVE'?'red':'null'">
+          {{groceryList.date}} </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let groceryList"
+          [ngClass]="isPastDate(groceryList.date) && groceryList.status === 'ACTIVE'?'red':'null'">
+          {{groceryList.status}} </td>
+      </ng-container>
+      <ng-container matColumnDef="consumerName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Consumer Name </th>
+        <td mat-cell *matCellDef="let groceryList"
+          [ngClass]="isPastDate(groceryList.date) && groceryList.status === 'ACTIVE'?'red':'null'">
+          {{groceryList.consumerName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="shopName">
+        <th mat-header-cell *matHeaderCellDef> Shop Name </th>
+        <td mat-cell *matCellDef="let groceryList"
+          [ngClass]="isPastDate(groceryList.date) && groceryList.status === 'ACTIVE'?'red':'null'">
+          {{groceryList.shopName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="totalCost">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Cost </th>
+        <td mat-cell *matCellDef="let groceryList"
+          [ngClass]="isPastDate(groceryList.date) && groceryList.status === 'ACTIVE'?'red':'null'">
+          {{groceryList.totalCost | number : '1.2-2'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="viewList">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let groceryList" (click)="viewItems(groceryList)" matTooltip="View list"
+          [matTooltipPosition]="'above'" matTooltipClass="custom-tooltip-blue"> <span class="material-icons">
+            view_list
+          </span> </td>
+      </ng-container>
+      <ng-container matColumnDef="done">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let groceryList" (click)="changeStatusToFinished(groceryList)"
+          [hidden]="groceryList.status === GroceryListStatus.IRRELEVANT" matTooltip="Mark as done"
+          [matTooltipPosition]="'above'" matTooltipClass="custom-tooltip-blue"> <span class="material-icons">
+            check_circle_outline
+          </span> </td>
+      </ng-container>
+      <ng-container matColumnDef="dismiss">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let groceryList" (click)="changeStatusToIrrelevant(groceryList)"
+          [hidden]="groceryList.status === GroceryListStatus.IRRELEVANT" matTooltip="Mark as irrelevant"
+          [matTooltipPosition]="'above'" matTooltipClass="custom-tooltip-blue"> <span class="material-icons">
+            highlight_off
+          </span> </td>
+      </ng-container>
+    </table>
   </div>
-</div>
-
-
-<table mat-table [dataSource]="groceryListsArray">
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> Id </th>
-    <td mat-cell *matCellDef="let groceryList"> {{groceryList.id}} </td>
-  </ng-container>
-  <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef> Date </th>
-    <td mat-cell *matCellDef="let groceryList"> {{groceryList.date}} </td>
-  </ng-container>
-  <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef> Status </th>
-    <td mat-cell *matCellDef="let groceryList"> {{groceryList.status}} </td>
-  </ng-container>
-  <ng-container matColumnDef="consumerName">
-    <th mat-header-cell *matHeaderCellDef> Consumer Name </th>
-    <td mat-cell *matCellDef="let groceryList"> {{groceryList.consumerName}} </td>
-  </ng-container>
-  <ng-container matColumnDef="shopName">
-    <th mat-header-cell *matHeaderCellDef> Shop Name </th>
-    <td mat-cell *matCellDef="let groceryList"> {{groceryList.shopName}} </td>
-  </ng-container>
-  <ng-container matColumnDef="totalCost">
-    <th mat-header-cell *matHeaderCellDef> Total Cost </th>
-    <td mat-cell *matCellDef="let groceryList"> {{groceryList.totalCost}} </td>
-  </ng-container>
-  <ng-container matColumnDef="viewList">
-    <th mat-header-cell *matHeaderCellDef> View list </th>
-    <td mat-cell *matCellDef="let groceryList" (click)="viewItems(groceryList.id)"> <span class="material-icons">
-        view_list
-      </span> </td>
-  </ng-container>
-</table>
+</mat-sidenav-container>

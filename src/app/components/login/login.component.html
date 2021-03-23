@@ -4,30 +4,35 @@
     <mat-card-header>
       <mat-card-title>Log in</mat-card-title>
     </mat-card-header>
+    <br>
+    <br>
 
-    <form class="example-form">
+    <form class="example-form " [formGroup]="loginForm" (ngSubmit)="login()">
       <mat-card-content>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Username" #nameInfo="ngModel" [(ngModel)]="loginDetails.name" name="name">
+          <input matInput placeholder="Username" formControlName="username">
+          <mat-error>Username is required</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" #passwordInfo="ngModel" [(ngModel)]="loginDetails.password"
-            name="password" type="password">
+          <input matInput placeholder="Password" formControlName="password">
+          <mat-error>Password is required</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
           <mat-label>User type</mat-label>
-          <mat-select #typeInfo="ngModel" [(ngModel)]="loginDetails.type" name="type">
+          <mat-select formControlName="usertype" placeholder="User Type">
             <mat-option value="Administrator">Administrator</mat-option>
             <mat-option value="consumer">Consumer</mat-option>
           </mat-select>
+          <mat-error>User type is required</mat-error>
         </mat-form-field>
-
       </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block" (click)="login()">Log in</button>
+      <mat-card-actions>
+        <button mat-stroked-button color="accent" class="btn-block" [disabled]="loginForm.invalid" type="submit">Log
+          in</button>
+      </mat-card-actions>
+
     </form>
-
   </mat-card>
-
 </div>

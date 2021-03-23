@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+  text-align: center !important;
+  margin: 0 auto !important;
+  background-color: floralwhite !important;
+  border-radius: 8px;
+  overflow: hidden !important;
+}
+
+.mat-column-updateItem {
+  width: 5rem;
+}
+
+.mat-column-select {
+  width: 5rem;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+@media print {
+ #printableTable {  
+    margin: 0px auto; 
+    top: 0px; 
+    bottom: 0px; 
+    width: auto;
+    height: 100vh;
+  }
+
+  .noPrint {
+    display: none;
+  }
+
+  .isPrinting app-print-layout {
+    margin: 15% auto;
+    display: block;
+  }
+}
+

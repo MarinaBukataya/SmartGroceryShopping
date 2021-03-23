@@ -1,3 +1,38 @@
 table {
-    width: 100%;
+  width: 80%;
+  text-align: center !important;
+  margin: 0 auto !important;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+.mat-table {
+  background-color: floralwhite !important;
+  border-radius: 8px;
+  overflow: hidden !important;
+}
+
+.mat-column-updateItem {
+  width: 5rem;
+}
+
+.mat-column-deleteItem {
+  width: 5rem;
+}
+
+@media print {
+  th.mat-header-cell {
+    display: table-header-group;
+  }
+
+  .noPrint {
+    display: none;
+  }
+
+  .isPrinting app-print-layout {
+    margin: 15% auto;
+    display: block;
+  }
 }

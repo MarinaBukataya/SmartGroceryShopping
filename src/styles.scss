@@ -1,8 +1,10 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
+// Import checkbox styles for the row selection variant
+
+
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -14,20 +16,17 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $SmartGroceryShopping-primary: mat-palette($custom-primary);
-$SmartGroceryShopping-accent: mat-palette($custom-accent);
+$SmartGroceryShopping-accent: mat-palette($mat-pink);
 
 // The warn palette is optional (defaults to red).
-$SmartGroceryShopping-warn: mat-palette($mat-red);
+$SmartGroceryShopping-warn: mat-palette($mat-deep-orange);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$SmartGroceryShopping-theme: mat-light-theme((
-  color: (
-    primary: $SmartGroceryShopping-primary,
-    accent: $SmartGroceryShopping-accent,
-    warn: $SmartGroceryShopping-warn,
-  )
-));
+$SmartGroceryShopping-theme: mat-light-theme((color: (primary: $SmartGroceryShopping-primary,
+      accent: $SmartGroceryShopping-accent,
+      warn: $SmartGroceryShopping-warn,
+    )));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -58,10 +57,33 @@ body {
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
 }
 
-
-
-@font-face {
-  font-family: Casta;
-  src: url(assets/Casta-ThinSlanted.otf) format("opentype");
+.custom-tooltip-blue {
+  background-color: charcoal;
+  color: #ffffff;
 }
 
+th.mat-header-cell,
+th.mat-sort-header,
+td.mat-cell {
+  text-align: center !important;
+}
+
+@font-face {
+  font-family: Blenda;
+  src: url(assets/Blenda_Script.otf) format("opentype");
+}
+
+
+snack-bar-container.success {
+  background-color:green;
+}
+
+snack-bar-container.error {
+  background-color:red;
+}
+
+snack-bar-container.notification {
+  font-size: 18px !important;
+  color:white;
+  font-weight:bold;
+}

@@ -1,0 +1,29 @@
+table {
+  margin-top: 30px;
+  width: 80%;
+  border-spacing: 0 8px !important;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  background-color: floralwhite !important;
+  border-radius: 8px;
+  overflow: hidden !important;
+}
+
+td.mat-cell,
+th.mat-header-cell {
+  text-align: center;
+  justify-content: center;
+}
+
+.example-sidenav-container {
+  height: calc(100% - 64px);
+  background-color: gainsboro !important;
+}
+
+.example-sidenav {
+  background-color: whitesmoke !important;
+}
+
+
+

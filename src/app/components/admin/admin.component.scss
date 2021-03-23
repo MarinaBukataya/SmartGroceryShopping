@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper {
   margin-top: 20px;
 }
 
@@ -6,12 +6,31 @@ table {
   width: 70%;
   margin: auto;
   margin-top: 20px;
+  border-collapse: collapse;
+  border-spacing: 0 8px !important;
+  text-align: center;
 }
 
-.example-month-picker .mat-calendar-period-button {
-  pointer-events: none;
+.example-sidenav-container {
+  height: calc(100% - 64px);
+  background-color: gainsboro !important;
 }
 
-.example-month-picker .mat-calendar-arrow {
-  display: none;
+.example-sidenav {
+  background-color: whitesmoke !important;
 }
+
+.mat-table {
+  background-color: floralwhite !important;
+  border-radius: 8px;
+  overflow: hidden !important;
+}
+
+table span {
+  margin: 10px 5px;
+}
+
+.red {
+  color: red;
+}
+

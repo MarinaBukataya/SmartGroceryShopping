@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginDetails } from 'src/app/models/LoginDetails';
 import { LoginResponse } from 'src/app/models/LoginResponse';
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { ConsumerService } from 'src/app/services/consumer.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -12,17 +14,26 @@ import { ConsumerService } from 'src/app/services/consumer.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  loginForm: FormGroup;
   loginDetails = new LoginDetails();
 
+  constructor(private adminService: AdminService, private consumerService: ConsumerService, private authorizationService: AuthorizationService, private router: Router, private notificationService: NotificationService) {
 
-  constructor(private adminService: AdminService, private authorizationService: AuthorizationService, private consumerService: ConsumerService, private router: Router) { }
-
+  }
   ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      usertype: new FormControl('', Validators.required)
+    })
 
   }
 
+
   public login(): void {
+    this.loginDetails.type = this.loginForm.get('usertype').value;
+    this.loginDetails.name = this.loginForm.get('username').value;
+    this.loginDetails.password = this.loginForm.get('password').value;
     if (this.loginDetails.type === 'Administrator') {
       this.adminService.login(this.loginDetails).subscribe(loginRes => {
         let loginResponse: LoginResponse;
@@ -31,12 +42,16 @@ export class LoginComponent implements OnInit {
         this.authorizationService.setToken(token);
         this.router.navigate(['admin']);
       },
-        (err) => { alert(err.message); });
+        (err) => { this.notificationService.error(err.error) });
     } else {
-      this.consumerService.login(this.loginDetails).subscribe(token => {
+      this.consumerService.login(this.loginDetails).subscribe(loginRes => {
+        let loginResponse: LoginResponse;
+        loginResponse = loginRes;
+        const token = loginResponse.token;
         this.authorizationService.setToken(token);
+        this.router.navigate(['consumer']);
       },
-        (err) => (err) => { alert(err.error) });
+        (err) => { this.notificationService.error(err.error) });
     }
   }
 

@@ -1,20 +1,16 @@
-import { ViewGroceryListComponent } from './../view-grocery-list/view-grocery-list.component';
-import { Component, OnInit } from '@angular/core';
+import { ViewGroceryListComponent } from '../view-grocery-list/view-grocery-list.component';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { GroceryList } from 'src/app/models/GroceryList';
 import { FormControl } from '@angular/forms';
-
-import { MatDatepicker } from '@angular/material/datepicker';
-import * as _moment from 'moment';
-// tslint:disable-next-line:no-duplicate-imports
-import { default as _rollupMoment, Moment } from 'moment';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateGroceryListComponent } from '../create-grocery-list/create-grocery-list.component';
+import { AuthorizationService } from 'src/app/services/authorization.service';
+import { GroceryListStatus } from 'src/app/models/GroceryListStatus';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatDatepicker } from '@angular/material/datepicker';
 
-const moment = _rollupMoment || _moment;
-
-// See the Moment.js docs for the meaning of these formats:
-// https://momentjs.com/docs/#/displaying/format/
 export const MY_FORMATS = {
   parse: {
     dateInput: 'MM/YYYY',
@@ -30,56 +26,126 @@ export const MY_FORMATS = {
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  styleUrls: ['./admin.component.scss'],
+  providers: [
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+  ]
 })
-export class AdminComponent implements OnInit {
 
-  groceryListsArray: GroceryList[];
-  groceryList: GroceryList;
-  columnsToDisplay = ['id', 'date', 'status', 'consumerName', 'shopName', 'totalCost', 'viewList'];
+
+export class AdminComponent implements OnInit, AfterViewInit {
+
+  groceryListsArray: any = new MatTableDataSource<GroceryList>();
+  columnsToDisplay = ['id', 'date', 'status', 'consumerName', 'shopName', 'totalCost', 'viewList', 'done', 'dismiss'];
   public resultDialog: GroceryList;
-  date = new FormControl(moment());
+  date = new FormControl();
+  todayDate: Date = new Date();
+  GroceryListStatus = GroceryListStatus;
 
-  chosenYearHandler(normalizedYear: Moment) {
-    const ctrlValue = this.date.value;
-    ctrlValue.year(normalizedYear.year());
-    this.date.setValue(ctrlValue);
-  }
+  @ViewChild(MatTable) table: MatTable<any>;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatDatepicker) picker;
 
-  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value;
-    ctrlValue.month(normalizedMonth.month());
-    this.date.setValue(ctrlValue);
-    datepicker.close();
-  }
-
-  constructor(private adminService: AdminService, public dialog: MatDialog,) { }
+ 
+  constructor(private adminService: AdminService, public dialog: MatDialog, private authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
+    this.date = new FormControl(this.todayDate);
     this.adminService.getCurrentMonthsGroceryLists().subscribe(
-      (response) => { this.groceryListsArray = response },
+      (response) => { this.groceryListsArray.data = response as GroceryList[]; },
       (err) => { alert(err.error); }
     )
   }
 
-  public viewItems(groceryListId: number) {
-    this.openDialog(groceryListId);
+  ngAfterViewInit() {
+    this.groceryListsArray.sort = this.sort;
   }
 
-  openDialog(groceryListId: number) {
+  monthSelected(params) {
+    this.date.setValue(params);
+    this.picker.close();
+    const chosenDate = new Date(this.date.value);
+    const year = chosenDate.getFullYear();
+    const month = chosenDate.getMonth() + 1;
+    this.adminService.getGroceryListsByYearAndMonth(year, month).subscribe(
+      (response) => { this.groceryListsArray.data = response as GroceryList[]; },
+      (err) => { alert(err.error); }
+    )
+  }
 
+
+  public viewItems(groceryList: GroceryList) {
+    this.openDialog(groceryList);
+  }
+
+  openDialog(groceryList: GroceryList) {
     const dialogRef = this.dialog.open(ViewGroceryListComponent, {
-      width: '900px',
-      data: { groceryListId }
+      width: '700px',
+      data: { groceryList }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.adminService.getOneGroceryList(groceryListId).subscribe(
-        (response) => { this.groceryList = response },
-        (err) => { alert(err.error); }
-      )
+      if (result) {
+        this.resultDialog = result;
+        this.adminService.updateGroceryList(this.resultDialog).subscribe(
+          (res) => {
+            const idx = this.groceryListsArray.data.findIndex(i => i.id === groceryList.id);
+            this.groceryListsArray.data.splice(idx, 1, res);
+            this.groceryListsArray._data.next(this.groceryListsArray.data);
+            this.table.renderRows();
+          },
+          (err) => { alert(err.message); }
+        );
+      }
     });
   }
 
-  
+  changeStatusToFinished(groceryList: GroceryList) {
+    groceryList.status = GroceryListStatus.FINISHED;
+    this.adminService.updateGroceryList(groceryList).subscribe(
+      (res) => {
+        const idx = this.groceryListsArray.data.findIndex(i => i.id === groceryList.id);
+        this.groceryListsArray.data.splice(idx, 1, res);
+        // this.groceryListsArray._data.next(this.groceryListsArray.data);
+      },
+      (err) => { alert(err.message); }
+    );
+  }
+
+  changeStatusToIrrelevant(groceryList: GroceryList) {
+    groceryList.status = GroceryListStatus.IRRELEVANT;
+    this.adminService.updateGroceryList(groceryList).subscribe(
+      (res) => {
+        const idx = this.groceryListsArray.data.findIndex(i => i.id === groceryList.id);
+        this.groceryListsArray.data.splice(idx, 1, res);
+      },
+      (err) => { alert(err.message); }
+    );
+  }
+
+  isPastDate(date: Date) {
+    this.todayDate.setHours(0, 0, 0, 0);
+    let past = new Date(date);
+    if (past < this.todayDate) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  isRed() {
+    return this.groceryListsArray.data.some(x => x.status === GroceryListStatus.ACTIVE && this.isPastDate(x.date));
+  }
+
+  public getToken(): string {
+    return this.authorizationService.getToken();
+  }
+
+  logout() {
+    this.adminService.logout(this.getToken()).subscribe(
+      () => { this.authorizationService.deleteToken(); },
+      (err) => { alert(err.message); });
+  }
+
 }

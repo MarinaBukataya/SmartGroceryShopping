@@ -1,0 +1,10 @@
+.header { height: 100px; }
+.header { position: fixed; top: 30px; }
+
+@media screen {
+  :host {
+    display: none;
+  }
+}
+
+
