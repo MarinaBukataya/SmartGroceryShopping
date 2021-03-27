@@ -2,15 +2,11 @@
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
     <mat-nav-list class="dashboard">
       <a mat-list-item [routerLink]="['/admin']" routerLinkActive="router-link-active">
-        <span class="material-icons">
-          production_quantity_limits
-        </span> Grocery Lists
-      </a>
+        <span class="material-icons">production_quantity_limits</span> Grocery Lists </a>
       <a mat-list-item [routerLink]="['/consumers']"><span class="material-icons">face</span> Consumers </a>
+      <a mat-list-item [routerLink]="['/statistics']"><span class="material-icons">donut_small</span> Statistics </a>
       <mat-divider></mat-divider>
-      <a mat-list-item href="['']" (click)=logout()>
-        <mat-icon>logout</mat-icon> Log out
-      </a>
+      <a mat-list-item [routerLink]="['']" (click)=logout()><mat-icon>logout</mat-icon> Log out </a>
     </mat-nav-list>
   </mat-sidenav>
   <div class="example-sidenav-content">

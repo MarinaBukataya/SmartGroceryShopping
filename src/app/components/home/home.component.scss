@@ -1,0 +1,26 @@
+.image {
+  height: 100%;
+  background-size: cover;
+  width: auto;
+  //background: rgba(white, 0.5);
+  background-image:
+    linear-gradient(rgba(white, 0.5), rgba(white, 0.5)),
+    url("/../assets/Background.jpg");
+  background-position: 50% 50%;
+}
+
+div.image {
+  position: relative;
+  color: #161b31;
+  text-align: center;
+}
+
+div.content {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding-left: 10%;
+  padding-right: 10%;
+}

@@ -4,6 +4,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { ConsumerComponent } from './components/consumer/consumer.component';
 import { ConsumersTableComponent } from './components/consumers-table/consumers-table.component';
 import { CreateGroceryListComponent } from './components/create-grocery-list/create-grocery-list.component';
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { PrintLayoutComponent } from './components/print-layout/print-layout.component';
 import { ReviewGroceryListComponent } from './components/review-grocery-list/review-grocery-list.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'consumers', component: ConsumersTableComponent },
   { path: 'consumer', component: ConsumerComponent },
   { path: 'items', component: ViewAllItemsComponent },
+  { path: '', component: HomeComponent },
   {
     path: 'print',
     outlet: 'print',

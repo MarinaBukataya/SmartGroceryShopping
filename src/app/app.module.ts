@@ -31,6 +31,7 @@ import { ViewAllItemsComponent } from './components/view-all-items/view-all-item
 import { PrintLayoutComponent } from './components/print-layout/print-layout.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 
@@ -51,6 +52,7 @@ import { ChartComponent } from './components/chart/chart.component';
     PrintLayoutComponent,
     StatisticsComponent,
     ChartComponent,
+    HomeComponent,
 
 
 
