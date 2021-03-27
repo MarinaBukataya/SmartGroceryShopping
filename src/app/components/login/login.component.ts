@@ -16,7 +16,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginDetails = new LoginDetails();
-
+  hide = true;
   constructor(private adminService: AdminService, private consumerService: ConsumerService, private authorizationService: AuthorizationService, private router: Router, private notificationService: NotificationService) {
 
   }
