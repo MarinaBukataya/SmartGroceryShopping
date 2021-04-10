@@ -15,7 +15,6 @@ export class ChartComponent implements OnInit {
 
   colors: Color[] = [
     {
-
       backgroundColor: [
         '#1B1E35',
         '#702F43',
@@ -53,8 +52,6 @@ export class ChartComponent implements OnInit {
 
 
   }
-
-
 
   doughnutChartType: ChartType = 'doughnut';
 
