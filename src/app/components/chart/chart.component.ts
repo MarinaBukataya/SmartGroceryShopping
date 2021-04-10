@@ -53,6 +53,7 @@ export class ChartComponent implements OnInit {
 
   }
 
+
   doughnutChartType: ChartType = 'doughnut';
 
   constructor() {

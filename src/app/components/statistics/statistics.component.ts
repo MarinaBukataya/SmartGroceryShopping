@@ -39,9 +39,7 @@ export class StatisticsComponent implements OnInit {
 
   @ViewChild(MatDatepicker) picker;
 
-  constructor(private adminService: AdminService, private authorizationService: AuthorizationService) {
-
-  }
+  constructor(private adminService: AdminService, private authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
     this.date = new FormControl(this.todayDate);
@@ -49,7 +47,9 @@ export class StatisticsComponent implements OnInit {
     const year = chosenDate.getFullYear();
     const month = chosenDate.getMonth() + 1;
     this.adminService.getMonthlyExpenses(year, month).subscribe(
-      (response) => { this.monthlyExpenses = response.toFixed(2); },
+      (response) => {
+        this.monthlyExpenses = response.toFixed(2);
+      },
       (err) => { alert(err.error); }
     )
 
@@ -76,7 +76,6 @@ export class StatisticsComponent implements OnInit {
             this.categoriesChartData.push(((this.items.filter(x => x.category === i.category).length / this.items.length) * 100).toFixed(0));
           }
         });
-
       });
 
   }
@@ -88,15 +87,52 @@ export class StatisticsComponent implements OnInit {
     const year = chosenDate.getFullYear();
     const month = chosenDate.getMonth() + 1;
     this.adminService.getMonthlyExpenses(year, month).subscribe(
-      (response) => { this.monthlyExpenses = response; console.log(this.monthlyExpenses) },
+      (response) => {
+        this.monthlyExpenses = response.toFixed(2);
+        this.categoriesChartData = [];
+        this.categoriesChartLabels = [];
+        this.chartData = [];
+        this.chartLabels = [];
+        this.itemsPerCategoryChartLabels = [];
+        this.itemsPerCategoryChartData = [];
+        this.items = [];
+        this.monthlyExpensesByCategory = 0;
+        this.type = new FormControl('ALL');
+      },
       (err) => { alert(err.error); }
-    )
+    );
+    this.adminService.getItemsByYearAndMonth(year, month).subscribe(
+      (response) => {
+        this.items = response;
+        this.items.forEach(i => {
+          if (this.categoriesChartLabels.indexOf(i.category) === -1) {
+            this.categoriesChartLabels.push(i.category);
+            this.categoriesChartData.push(((this.items.filter(x => x.category === i.category).length / this.items.length) * 100).toFixed(0));
+          }
+        });
+      },
+      (err) => { alert(err.error); });
+
+    this.adminService.getItemsByYearAndMonth(year, month).subscribe(
+      (response) => {
+        this.items = response;
+        this.items.forEach(i => {
+          if (this.chartLabels.indexOf(i.name) === -1) {
+            this.chartLabels.push(i.name);
+            this.chartData.push(((this.items.filter(x => x.name === i.name).length / this.items.length) * 100).toFixed(0));
+          }
+        });
+      },
+      (err) => { alert(err.error); });
   }
 
 
   categorySelected(value: string): void {
+    const chosenDate = new Date(this.date.value);
+    const year = chosenDate.getFullYear();
+    const month = chosenDate.getMonth() + 1;
     if (value === 'ALL') {
-      this.adminService.getCurrentMonthsItems().subscribe(
+      this.adminService.getItemsByYearAndMonth(year, month).subscribe(
         (response) => {
           this.items = response;
           this.items.forEach(i => {
@@ -105,11 +141,13 @@ export class StatisticsComponent implements OnInit {
               this.categoriesChartData.push(((this.items.filter(x => x.category === i.category).length / this.items.length) * 100).toFixed(0));
             }
           });
-        });
-    } else {
+        },
+        (err) => { alert(err.error); });
+    }
+    else {
       this.itemsPerCategoryChartData = [];
       this.itemsPerCategoryChartLabels = [];
-      this.adminService.getItemsByCategory(value)
+      this.adminService.getItemsByCategoryYearAndMonth(value, year, month)
         .subscribe(
           (response) => {
             this.items = response;
@@ -117,16 +155,14 @@ export class StatisticsComponent implements OnInit {
               if (this.itemsPerCategoryChartLabels.indexOf(i.name) === -1) {
                 this.itemsPerCategoryChartLabels.push(i.name);
                 this.itemsPerCategoryChartData.push(((this.items.filter(x => x.name === i.name).length / this.items.length) * 100).toFixed(0));
-                
               }
             });
-            console.log(this.itemsPerCategoryChartData);
-            console.log(this.itemsPerCategoryChartLabels);
             this.monthlyExpensesByCategory = this.items.map(i => i.cost).reduce((sum, val) => sum + val, 0);
           },
           (err) => { alert(err.error); });
     }
   }
+
 
 
 

@@ -67,10 +67,17 @@ export class AdminService {
     return this.httpClient.get<any>(this.BASE_URL + '/get-currentmonth-items');
   }
 
+  public getItemsByYearAndMonth(year: number, month: number): Observable<any> {
+    return this.httpClient.get<any>(this.BASE_URL + '/get-items-byyearandmonth/' + year + '/' + month);
+  } 
+
   public getItemsByCategory(category: string): Observable<any>{
     return this.httpClient.get<any>(this.BASE_URL + '/get-items-bycategory/' + category);
   }
 
+  public getItemsByCategoryYearAndMonth(category: string, year: number, month: number): Observable<any> {
+    return this.httpClient.get<any>(this.BASE_URL + '/get-items-bycategoryyearandmonth/' + category + '/' + year + '/' + month);
+  } 
   public getAllConsumers(): Observable<any> {
     return this.httpClient.get<any>(this.BASE_URL + '/get-allconsumers');
   }
