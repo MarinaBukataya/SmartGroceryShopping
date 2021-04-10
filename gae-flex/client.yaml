@@ -1,0 +1,49 @@
+runtime: python
+env: flex
+
+handlers:
+- url: /(.+\.js)
+  static_files: dist/site1/\1
+  upload: dist/site1/(.+\.js)
+
+- url: /(.+\.css)
+  static_files: dist/site1/\1
+  upload: dist/site1/(.+\.css)
+
+- url: /(.+\.png)
+  static_files: dist/site1/\1
+  upload: dist/site1/(.+\.png)
+
+- url: /(.+\.jpg)
+  static_files: dist/site1/\1
+  upload: dist/site1/(.+\.jpg)
+
+- url: /(.+\.svg)
+  static_files: dist/site1/\1
+  upload: dist/site1/(.+\.svg)
+
+- url: /favicon.ico
+  static_files: dist/site1/favicon.ico
+  upload: dist/site1/favicon.ico
+
+- url: /(.+\.json)
+  static_files: dist/site1/\1
+  upload: dist/site1/(.+\.json)
+
+- url: /(.+)
+  static_files: dist/site1/index.html
+  upload: dist/site1/index.html
+
+- url: /
+  static_files: dist/site1/index.html
+  upload: dist/site1/index.html
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE
