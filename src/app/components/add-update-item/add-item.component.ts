@@ -15,6 +15,7 @@ export interface DialogData {
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.scss']
 })
+
 export class AddItemComponent {
 
   item = new Item();
@@ -59,8 +60,7 @@ export class AddItemComponent {
       this.item.category = Category.BREAD;
       this.item.quantity = 0;
       this.item.unit = Unit.item;
-      this.item.price = 0;
-    
+      this.item.price = 0;   
     }
   }
 

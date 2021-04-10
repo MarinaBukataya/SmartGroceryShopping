@@ -46,7 +46,7 @@
         <mat-grid-tile>
           <ng-container *ngIf="type.value === 'ALL'; else elseTemplate1">
             <div>
-              <mat-title style="font-family: Blenda; font-size:2vw;"> Items you bought </mat-title>
+              <mat-title *ngIf="monthlyExpenses === 0 && monthlyExpensesByCategory === 0" style="font-family: Blenda; font-size:2vw;"> Items you bought </mat-title>
               <br>
               <br>
               <app-chart [doughnutChartLabels]="chartLabels" [doughnutChartData]="chartData"></app-chart>
@@ -80,7 +80,7 @@
         <mat-grid-tile>
           <ng-container *ngIf="type.value === 'ALL'; else elseTemplate2">
             <div>
-              <mat-title style="font-family: Blenda; font-size:2vw;"> from these categories </mat-title>
+              <mat-title *ngIf="monthlyExpenses === 0 && monthlyExpensesByCategory === 0" style="font-family: Blenda; font-size:2vw;"> from these categories </mat-title>
               <br>
               <br>
               <app-chart [doughnutChartLabels]="categoriesChartLabels" [doughnutChartData]="categoriesChartData">

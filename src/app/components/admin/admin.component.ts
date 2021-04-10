@@ -32,7 +32,6 @@ export const MY_FORMATS = {
   ]
 })
 
-
 export class AdminComponent implements OnInit, AfterViewInit {
 
   groceryListsArray: any = new MatTableDataSource<GroceryList>();
@@ -50,7 +49,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   constructor(private adminService: AdminService, public dialog: MatDialog, private authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
-    this.date = new FormControl(this.todayDate);
+    this.date.setValue(this.todayDate);
     this.adminService.getCurrentMonthsGroceryLists().subscribe(
       (response) => { this.groceryListsArray.data = response as GroceryList[]; },
       (err) => { alert(err.error); }
@@ -73,7 +72,6 @@ export class AdminComponent implements OnInit, AfterViewInit {
     )
   }
 
-
   public viewItems(groceryList: GroceryList) {
     this.openDialog(groceryList);
   }
@@ -89,7 +87,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         this.resultDialog = result;
         this.adminService.updateGroceryList(this.resultDialog).subscribe(
           (res) => {
-            const idx = this.groceryListsArray.data.findIndex(i => i.id === groceryList.id);
+            const idx = this.groceryListsArray.data.findIndex(g => g.id === groceryList.id);
             this.groceryListsArray.data.splice(idx, 1, res);
             this.groceryListsArray._data.next(this.groceryListsArray.data);
             this.table.renderRows();
@@ -104,9 +102,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
     groceryList.status = GroceryListStatus.FINISHED;
     this.adminService.updateGroceryList(groceryList).subscribe(
       (res) => {
-        const idx = this.groceryListsArray.data.findIndex(i => i.id === groceryList.id);
+        const idx = this.groceryListsArray.data.findIndex(g => g.id === groceryList.id);
         this.groceryListsArray.data.splice(idx, 1, res);
-        // this.groceryListsArray._data.next(this.groceryListsArray.data);
       },
       (err) => { alert(err.message); }
     );
@@ -116,7 +113,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     groceryList.status = GroceryListStatus.IRRELEVANT;
     this.adminService.updateGroceryList(groceryList).subscribe(
       (res) => {
-        const idx = this.groceryListsArray.data.findIndex(i => i.id === groceryList.id);
+        const idx = this.groceryListsArray.data.findIndex(g => g.id === groceryList.id);
         this.groceryListsArray.data.splice(idx, 1, res);
       },
       (err) => { alert(err.message); }
@@ -128,8 +125,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     let past = new Date(date);
     if (past < this.todayDate) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }

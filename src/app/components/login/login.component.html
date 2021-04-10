@@ -15,9 +15,13 @@
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" required formControlName="password">
+          <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password"
+            [errorStateMatcher]="matcher">
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          <mat-error>Password is required</mat-error>
+          <mat-error *ngIf="loginForm.get('password').hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="loginForm.get('password').hasError('pattern')">
+            Password is not valid
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">

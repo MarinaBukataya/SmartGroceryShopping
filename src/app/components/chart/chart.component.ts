@@ -35,7 +35,6 @@ export class ChartComponent implements OnInit {
         '#9B3192',
         '#57167E',
         '#2B0B3F'
-
       ]
     }
   ];

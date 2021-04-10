@@ -31,5 +31,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()"> Close </button>
-  <button mat-button [matDialogClose]="item" cdkFocusInitial>Save</button>
+  <button mat-button [disabled]="(checkChanges(origin, item) && type==='Update')" [matDialogClose]="item">{{type}}</button>
 </div>

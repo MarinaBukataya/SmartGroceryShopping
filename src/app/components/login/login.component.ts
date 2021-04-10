@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { LoginDetails } from 'src/app/models/LoginDetails';
 import { LoginResponse } from 'src/app/models/LoginResponse';
@@ -7,6 +8,13 @@ import { AdminService } from 'src/app/services/admin.service';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { ConsumerService } from 'src/app/services/consumer.service';
 import { NotificationService } from 'src/app/services/notification.service';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-login',
@@ -17,16 +25,19 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginDetails = new LoginDetails();
   hide = true;
+  matcher = new MyErrorStateMatcher();
+  passwordPattern = '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}';
+  patternErrorMessage = 'The password should be of 6 or more characters that contains at least one number, one lowercase letter, and one uppercase letter'
   constructor(private adminService: AdminService, private consumerService: ConsumerService, private authorizationService: AuthorizationService, private router: Router, private notificationService: NotificationService) {
 
   }
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, Validators.pattern(this.passwordPattern)]),
       usertype: new FormControl('', Validators.required)
-    })
-
+    });
+   
   }
 
 
