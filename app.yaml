@@ -1,0 +1,56 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+resources:
+    cpu: 1
+    memory_gb: 2
+    disk_size_gb: 10
+
+handlers:
+- url: /(.+\.js)
+  static_files: dist/SmartGroceryShopping/\1
+  upload: dist/SmartGroceryShopping/(.+\.js)
+
+- url: /(.+\.css)
+  static_files: dist/SmartGroceryShopping/\1
+  upload: dist/SmartGroceryShopping/(.+\.css)
+
+- url: /(.+\.png)
+  static_files: dist/SmartGroceryShopping/\1
+  upload: dist/SmartGroceryShopping/(.+\.png)
+
+- url: /(.+\.jpg)
+  static_files: dist/SmartGroceryShopping/\1
+  upload: dist/SmartGroceryShopping/(.+\.jpg)
+
+- url: /(.+\.svg)
+  static_files: dist/SmartGroceryShopping/\1
+  upload: dist/SmartGroceryShopping/(.+\.svg)
+
+- url: /favicon.ico
+  static_files: dist/SmartGroceryShopping/favicon.ico
+  upload: dist/SmartGroceryShopping/favicon.ico
+
+- url: /(.+\.json)
+  static_files: dist/SmartGroceryShopping/\1
+  upload: dist/SmartGroceryShopping/(.+\.json)
+
+- url: /(.+)
+  static_files: dist/SmartGroceryShopping/index.html
+  upload: dist/SmartGroceryShopping/index.html
+
+- url: /
+  static_files: dist/SmartGroceryShopping/index.html
+  upload: dist/SmartGroceryShopping/index.html
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - coverage
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE
