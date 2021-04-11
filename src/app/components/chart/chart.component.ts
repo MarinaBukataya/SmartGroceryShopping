@@ -15,26 +15,7 @@ export class ChartComponent implements OnInit {
 
   colors: Color[] = [
     {
-      backgroundColor: [
-        '#1B1E35',
-        '#702F43',
-        '#BE9B64',
-        '#9D7B54',
-        '#29382E',
-        '#785D3C',
-        '#846954',
-        '#B48659',
-        '#FDB346',
-        '#FE6762',
-        '#76DD76',
-        '#FDFE97',
-        '#FFF1C9',
-        '#F7B7A3',
-        '#EA5F89',
-        '#9B3192',
-        '#57167E',
-        '#2B0B3F'
-      ]
+      backgroundColor: getColors(),
     }
   ];
 
@@ -49,10 +30,7 @@ export class ChartComponent implements OnInit {
         }
       }
     }
-
-
   }
-
 
   doughnutChartType: ChartType = 'doughnut';
 
@@ -60,6 +38,36 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
 }
+
+function getColors(): string | string[] {
+  let colors = [
+    '#1B1E35',
+    '#702F43',
+    '#BE9B64',
+    '#9D7B54',
+    '#29382E',
+    '#785D3C',
+    '#846954',
+    '#B48659',
+    '#FDB346',
+    '#FE6762',
+    '#76DD76',
+    '#FDFE97',
+    '#FFF1C9',
+    '#F7B7A3',
+    '#EA5F89',
+    '#9B3192',
+    '#57167E',
+    '#2B0B3F'
+  ]
+  let bgcolors = [];
+  for (var i = 0; i < 1000; i++) {
+    bgcolors.push(colors[i % colors.length]);
+  }
+  return bgcolors;
+}
+

@@ -24,17 +24,17 @@
         <mat-datepicker #picker (monthSelected)="monthSelected($event)" startView="multi-year"></mat-datepicker>
       </mat-form-field>
       <ng-container *ngIf="type.value === 'ALL'; else elseTemplate">
-        <p style="font-family: Blenda; font-size:3vw; width:300px; text-align:center;"> This month you spent
+        <p style="font-family: Blenda; font-size:3vw; width:300px; text-align:center;"> In {{date.value | date: 'MMMM yyyy'}} you spent
           {{ monthlyExpenses | currency}}
         </p>
       </ng-container>
       <ng-template #elseTemplate>
-        <p style="font-family: Blenda; font-size:3vw; width:300px; text-align:center;"> This month you spent
+        <p style="font-family: Blenda; font-size:3vw; width:300px; text-align:center;"> In {{date.value | date: 'MMMM yyyy'}} you spent
           {{ monthlyExpensesByCategory | currency}} on {{ type.value }}
         </p>
       </ng-template>
       <mat-form-field>
-        <mat-select (selectionChange)="categorySelected($event.value)" placeholder="Categories" [formControl]="type" [disabled]="categoriesChartLabels.length === 0">
+        <mat-select (selectionChange)="categorySelected($event.value)" placeholder="Categories" [formControl]="type">
           <mat-option [value]="'ALL'">ALL</mat-option>
           <mat-option *ngFor="let key of keys; index as i" [value]="key">{{category[key]}}</mat-option>
         </mat-select>
