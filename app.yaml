@@ -7,6 +7,10 @@ resources:
     memory_gb: 2
     disk_size_gb: 10
 
+libraries:
+- name: ssl
+  version: latest
+  
 handlers:
 - url: /(.+\.js)
   static_files: dist/SmartGroceryShopping/\1
