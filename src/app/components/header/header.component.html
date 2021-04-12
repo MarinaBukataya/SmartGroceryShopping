@@ -2,5 +2,5 @@
   <span style="font-family: Blenda; font-size:4vw;"> Shopping </span>
   <div class="spacer"></div>
   <a [routerLink]="['/login']" *ngIf="router.url === '/'"> Log in </a>
-  <a [routerLink]="['/']" *ngIf="router.url === '/consumer'"> Log out </a>
+  <a [routerLink]="['/']" *ngIf="router.url === '/consumer' || router.url === '/create-list'"> Log out </a>
 </mat-toolbar>

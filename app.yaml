@@ -48,6 +48,10 @@ handlers:
   static_files: dist/SmartGroceryShopping/index.html
   upload: dist/SmartGroceryShopping/index.html
 
+- url: /(.+\.otf)
+  static_files: dist/SmartGroceryShopping/\1
+  upload: dist/SmartGroceryShopping/(.+\.otf)
+
 skip_files:
   - e2e/
   - node_modules/
