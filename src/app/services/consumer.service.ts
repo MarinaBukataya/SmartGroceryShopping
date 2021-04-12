@@ -10,7 +10,7 @@ import { LoginResponse } from '../models/LoginResponse';
   providedIn: 'root'
 })
 export class ConsumerService {
-  private BASE_URL = 'http://encoded-breaker-309609.ew.r.appspot.com/consumer'
+  private BASE_URL = 'https://encoded-breaker-309609.ew.r.appspot.com/consumer'
  // private BASE_URL = 'http://localhost:8080/consumer';
 
   constructor(private httpClient: HttpClient) { }
