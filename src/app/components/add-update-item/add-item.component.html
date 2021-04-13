@@ -20,7 +20,7 @@
       <mat-option *ngFor="let key of keys1; index as i" [value]="i">{{unit[key]}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field *ngIf="type === 'Update'">
     <input matInput [(ngModel)]="item.price" type="number" min="0" placeholder="Price">
   </mat-form-field>
   <mat-form-field *ngIf="type === 'Update'">

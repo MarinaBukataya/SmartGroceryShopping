@@ -17,6 +17,7 @@
         <mat-form-field class="example-full-width">
           <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password"
             [errorStateMatcher]="matcher">
+            <mat-hint>The password should be of 6 or more characters that contains at least one number, one lowercase letter, and one uppercase letter</mat-hint>
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           <mat-error *ngIf="loginForm.get('password').hasError('required')">Password is required</mat-error>
           <mat-error *ngIf="loginForm.get('password').hasError('pattern')">

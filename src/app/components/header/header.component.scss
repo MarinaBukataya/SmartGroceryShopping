@@ -1,16 +1,30 @@
 .spacer {
-    flex: 1;
-  }
-  
-  a:hover,
-  a:active {
-    color: #f25065;
-  }
-  
-  a {
-    color: white;
-    margin-right: 45px;
-    font-size: 1rem;
-    text-decoration: none
-  }
-  
+  flex: 1;
+}
+
+a:hover,
+a:active {
+  color: #f25065;
+}
+
+a {
+  color: white;
+  margin-right: 45px;
+  font-size: 1rem;
+  text-decoration: none
+}
+
+.extended-fab-button {
+  margin-right: 3%;
+  width: unset;
+  padding: 0 26px;
+  border-radius: 24px;
+  height: 40px;
+  align-items: center;
+  background-color: white;
+  color: #142219;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}

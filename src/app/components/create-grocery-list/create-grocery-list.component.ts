@@ -24,7 +24,7 @@ export class CreateGroceryListComponent implements OnInit {
   groceryList = new GroceryList();
   item: Item;
   public resultDialog: Item;
-  columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'updateItem', 'deleteItem'];
+  columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'updateItem', 'deleteItem'];
   todayDate: Date = new Date();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

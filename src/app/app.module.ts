@@ -32,6 +32,7 @@ import { PrintLayoutComponent } from './components/print-layout/print-layout.com
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { HomeComponent } from './components/home/home.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 
 
@@ -53,6 +54,7 @@ import { HomeComponent } from './components/home/home.component';
     StatisticsComponent,
     ChartComponent,
     HomeComponent,
+    RegistrationComponent,
 
 
 

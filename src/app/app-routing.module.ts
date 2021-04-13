@@ -7,18 +7,21 @@ import { CreateGroceryListComponent } from './components/create-grocery-list/cre
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { PrintLayoutComponent } from './components/print-layout/print-layout.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 import { ReviewGroceryListComponent } from './components/review-grocery-list/review-grocery-list.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ViewAllItemsComponent } from './components/view-all-items/view-all-items.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'registrations', component: RegistrationComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'create-list', component: CreateGroceryListComponent },
   { path: 'consumers', component: ConsumersTableComponent },
   { path: 'consumer', component: ConsumerComponent },
   { path: 'items', component: ViewAllItemsComponent },
   { path: '', component: HomeComponent },
+
   {
     path: 'print',
     outlet: 'print',

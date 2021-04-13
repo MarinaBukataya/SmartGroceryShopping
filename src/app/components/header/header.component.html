@@ -1,6 +1,10 @@
 <mat-toolbar color="primary">
-  <span style="font-family: Blenda; font-size:4vw;"> Shopping </span>
+  <span style="font-family: Lobster; font-size:4vw;"> Smart Shopping </span>
   <div class="spacer"></div>
-  <a [routerLink]="['/login']" *ngIf="router.url === '/'"> Log in </a>
-  <a [routerLink]="['/']" *ngIf="router.url === '/consumer' || router.url === '/create-list'"> Log out </a>
+  <button class="extended-fab-button" style="width: 104.07px" mat-fab [routerLink]="['/login']"
+    *ngIf="router.url === '/'">Log in</button>
+  <button class="extended-fab-button" mat-fab [routerLink]="['/login']" *ngIf="router.url === '/' || router.url === '/login'">Register</button>
+
+  <button class="extended-fab-button" mat-fab [routerLink]="['/']"
+    *ngIf="router.url === '/consumer' || router.url === '/create-list'"> Log out </button>
 </mat-toolbar>

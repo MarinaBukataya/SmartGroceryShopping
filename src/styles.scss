@@ -68,22 +68,16 @@ td.mat-cell {
   text-align: center !important;
 }
 
-@font-face {
-  font-family: Blenda;
-  src: url('/assets/Blenda_Script.otf') format('opentype');
-}
-
-
 snack-bar-container.success {
-  background-color:green;
+  background-color: green;
 }
 
 snack-bar-container.error {
-  background-color:red;
+  background-color: red;
 }
 
 snack-bar-container.notification {
   font-size: 18px !important;
-  color:white;
-  font-weight:bold;
+  color: white;
+  font-weight: bold;
 }

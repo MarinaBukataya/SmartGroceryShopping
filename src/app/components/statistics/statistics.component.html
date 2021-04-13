@@ -24,12 +24,12 @@
         <mat-datepicker #picker (monthSelected)="monthSelected($event)" startView="multi-year"></mat-datepicker>
       </mat-form-field>
       <ng-container *ngIf="type.value === 'ALL'; else elseTemplate">
-        <p style="font-family: Blenda; font-size:3vw; width:300px; text-align:center;"> In {{date.value | date: 'MMMM yyyy'}} you spent
+        <p style="font-family: Lobster; font-size:3vw; width:300px; text-align:center;"> In {{date.value | date: 'MMMM yyyy'}} you spent
           {{ monthlyExpenses | currency}}
         </p>
       </ng-container>
       <ng-template #elseTemplate>
-        <p style="font-family: Blenda; font-size:3vw; width:300px; text-align:center;"> In {{date.value | date: 'MMMM yyyy'}} you spent
+        <p style="font-family: Lobster; font-size:3vw; width:300px; text-align:center;"> In {{date.value | date: 'MMMM yyyy'}} you spent
           {{ monthlyExpensesByCategory | currency}} on {{ type.value }}
         </p>
       </ng-template>
@@ -46,7 +46,7 @@
         <mat-grid-tile>
           <ng-container *ngIf="type.value === 'ALL'; else elseTemplate1">
             <div>
-              <mat-title *ngIf="chartLabels.length !==0" style="font-family: Blenda; font-size:2vw;"> Items you bought </mat-title>
+              <mat-title *ngIf="chartLabels.length !==0" style="font-family: Lobster; font-size:2vw;"> Items you bought </mat-title>
               <br>
               <br>
               <app-chart [doughnutChartLabels]="chartLabels" [doughnutChartData]="chartData"></app-chart>
@@ -80,7 +80,7 @@
         <mat-grid-tile>
           <ng-container *ngIf="type.value === 'ALL'; else elseTemplate2">
             <div>
-              <mat-title *ngIf="categoriesChartLabels.length !== 0" style="font-family: Blenda; font-size:2vw;"> from these categories </mat-title>
+              <mat-title *ngIf="categoriesChartLabels.length !== 0" style="font-family: Lobster; font-size:2vw;"> from these categories </mat-title>
               <br>
               <br>
               <app-chart [doughnutChartLabels]="categoriesChartLabels" [doughnutChartData]="categoriesChartData">

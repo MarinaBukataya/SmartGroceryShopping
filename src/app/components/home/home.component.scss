@@ -3,7 +3,7 @@
   background-size: cover;
   width: auto;
   background-image:
-    linear-gradient(rgba(white, 0.3), rgba(white, 0.3)),
+    linear-gradient(rgba(white, 0.4), rgba(white, 0.4)),
     url("/../assets/Background.jpg");
   background-position: 50% 50%;
 
@@ -23,7 +23,12 @@ div.content {
   transform: translate(-50%, -50%);
   padding-left: 10%;
   padding-right: 10%;
-  color: black;
- 
+  color: #142219;
 }
 
+.aligned-with-icon {
+  position: absolute;
+  margin-top: 5px;
+  margin-left: 5px;
+  /* optional */
+}

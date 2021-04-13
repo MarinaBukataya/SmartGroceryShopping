@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
   hide = true;
   matcher = new MyErrorStateMatcher();
   passwordPattern = '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}';
-  patternErrorMessage = 'The password should be of 6 or more characters that contains at least one number, one lowercase letter, and one uppercase letter'
   constructor(private adminService: AdminService, private consumerService: ConsumerService, private authorizationService: AuthorizationService, private router: Router, private notificationService: NotificationService) {
 
   }
@@ -37,7 +36,7 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.pattern(this.passwordPattern)]),
       usertype: new FormControl('', Validators.required)
     });
-   
+
   }
 
 
