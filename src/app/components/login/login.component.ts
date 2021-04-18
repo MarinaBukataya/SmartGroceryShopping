@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   loginDetails = new LoginDetails();
   hide = true;
   matcher = new MyErrorStateMatcher();
-  passwordPattern = '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}';
+  passwordPattern = '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$';
   constructor(private adminService: AdminService, private consumerService: ConsumerService, private authorizationService: AuthorizationService, private router: Router, private notificationService: NotificationService) {
 
   }

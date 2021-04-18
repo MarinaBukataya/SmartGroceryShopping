@@ -14,7 +14,7 @@ import { ViewAllItemsComponent } from './components/view-all-items/view-all-item
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'registrations', component: RegistrationComponent },
+  { path: 'registration', component: RegistrationComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'create-list', component: CreateGroceryListComponent },
   { path: 'consumers', component: ConsumersTableComponent },

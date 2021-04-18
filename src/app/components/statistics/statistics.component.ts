@@ -48,7 +48,7 @@ export class StatisticsComponent implements OnInit {
     const month = chosenDate.getMonth() + 1;
     this.adminService.getMonthlyExpenses(year, month).subscribe(
       (response) => {
-        this.monthlyExpenses = response.toFixed(2);
+        this.monthlyExpenses = response.toFixed(2); console.log(this.monthlyExpenses);
       },
       (err) => { alert(err.error); }
     )

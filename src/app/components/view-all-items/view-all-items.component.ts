@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Item } from 'src/app/models/Item';
@@ -11,12 +12,14 @@ import { AuthorizationService } from 'src/app/services/authorization.service';
   styleUrls: ['./view-all-items.component.scss']
 })
 export class ViewAllItemsComponent implements OnInit, AfterViewInit {
-  columnsToDisplay = ['id', 'name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date'];
+  columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date'];
   itemsArray: any = new MatTableDataSource<Item>();
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.itemsArray.sort = this.sort;
+    this.itemsArray.paginator = this.paginator;
   }
 
   constructor(private adminService: AdminService, private authorizationService: AuthorizationService) { }

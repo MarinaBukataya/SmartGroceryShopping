@@ -1,6 +1,5 @@
 .login-wrapper {
-  margin-top: 3%;
-  height: 80%;
+  height: calc(100% - 64px);
 }
 
 .positronx {
@@ -23,16 +22,6 @@
   z-index: 5;
   max-width: 330px;
 }
-
-.box.back {
-  transform: scale(.95);
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
-  top: -20px;
-  opacity: .8;
-  z-index: -1;
-}
-
 
 .login-wrapper .example-form {
   min-width: 100%;

@@ -4,7 +4,8 @@ import { Item } from "./Item";
 export class GroceryList {
     public constructor(public id?: number, 
         public date?: Date, 
-        public status?: GroceryListStatus, 
+        public status?: GroceryListStatus,
+        public adminName?: string,  
         public consumerName?: string, 
         public totalCost?: number, 
         public shopName?: string, 
