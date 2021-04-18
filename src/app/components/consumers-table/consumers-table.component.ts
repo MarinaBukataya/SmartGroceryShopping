@@ -83,6 +83,6 @@ export class ConsumersTableComponent implements OnInit {
   logout() {
     this.adminService.logout(this.getToken()).subscribe(
       () => { this.authorizationService.deleteToken(); },
-      (err) => { alert(err.message); });
+      (err) => { alert(err.error); });
   }
 }

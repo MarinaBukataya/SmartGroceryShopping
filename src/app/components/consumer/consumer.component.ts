@@ -22,7 +22,7 @@ export class ConsumerComponent implements OnInit {
 
   groceryListsArray: any = new MatTableDataSource<GroceryList>();;
   groceryList = new GroceryList();
-  columnsToDisplay = ['id', 'date', 'status', 'consumerName', 'shopName', 'totalCost', 'viewList'];
+  columnsToDisplay = ['date', 'status', 'consumerName', 'shopName', 'totalCost', 'viewList'];
   public resultDialog: GroceryList;
   date = new FormControl(moment());
   todayDate: Date = new Date();

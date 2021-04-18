@@ -40,7 +40,7 @@ export class CreateGroceryListComponent implements OnInit {
       Date: new FormControl(this.todayDate),
       Status: new FormControl('ACTIVE'),
       ConsumerName: new FormControl('', Validators.required),
-      ShopName: new FormControl(),
+      ShopName: new FormControl('', Validators.required),
     });
   }
 

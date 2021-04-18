@@ -34,7 +34,7 @@
           {{groceryList.id}} </td>
       </ng-container>
       <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <th mat-header-cell *matHeaderCellDef> Date </th>
         <td mat-cell *matCellDef="let groceryList"
           [ngClass]="isPastDate(groceryList.date) && groceryList.status === 'ACTIVE'?'red':'null'">
           {{groceryList.date}} </td>
@@ -46,7 +46,7 @@
           {{groceryList.status}} </td>
       </ng-container>
       <ng-container matColumnDef="consumerName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Consumer Name </th>
+        <th mat-header-cell *matHeaderCellDef> Consumer Name </th>
         <td mat-cell *matCellDef="let groceryList"
           [ngClass]="isPastDate(groceryList.date) && groceryList.status === 'ACTIVE'?'red':'null'">
           {{groceryList.consumerName}} </td>

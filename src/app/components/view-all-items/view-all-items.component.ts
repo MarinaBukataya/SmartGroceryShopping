@@ -37,7 +37,7 @@ export class ViewAllItemsComponent implements OnInit, AfterViewInit {
   logout() {
     this.adminService.logout(this.getToken()).subscribe(
       () => { this.authorizationService.deleteToken(); },
-      (err) => { alert(err.message); });
+      (err) => { alert(err.error); });
   }
 
 

@@ -35,7 +35,7 @@ export const MY_FORMATS = {
 export class AdminComponent implements OnInit, AfterViewInit {
 
   groceryListsArray: any = new MatTableDataSource<GroceryList>();
-  columnsToDisplay = ['id', 'date', 'status', 'consumerName', 'shopName', 'totalCost', 'viewList', 'done', 'dismiss'];
+  columnsToDisplay = ['date', 'status', 'consumerName', 'shopName', 'totalCost', 'viewList', 'done', 'dismiss'];
   public resultDialog: GroceryList;
   date = new FormControl();
   todayDate: Date = new Date();
@@ -141,7 +141,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   logout() {
     this.adminService.logout(this.getToken()).subscribe(
       () => { this.authorizationService.deleteToken(); },
-      (err) => { alert(err.message); });
+      (err) => { alert(err.error); });
   }
 
 }
