@@ -30,7 +30,7 @@ export class ReviewGroceryListComponent {
   GroceryListStatus = GroceryListStatus;
 
   constructor(public dialogRef: MatDialogRef<ReviewGroceryListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private consumerService: ConsumerService, public dialog: MatDialog, public printService: PrintService) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private consumerService: ConsumerService, public dialog: MatDialog) {
     this.smartCopy(data.groceryList);
 
   }

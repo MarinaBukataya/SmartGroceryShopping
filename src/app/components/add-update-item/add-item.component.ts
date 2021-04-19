@@ -1,9 +1,16 @@
 import { Component, Inject } from '@angular/core';
+import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/models/Category';
 import { Item } from 'src/app/models/Item';
 import { Unit } from 'src/app/models/Unit';
 
+export class DirtyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+      return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+}
 
 export interface DialogData {
   item: Item;
@@ -34,32 +41,32 @@ export class AddItemComponent {
     this.smartCopy(data.item);
     this.type = data.type;
   }
-  smartCopy(item: Item) {
-    if (item) {
-      this.item.id = item.id;
-      this.item.name = item.name;
-      this.item.brand = item.brand;
-      this.item.category = item.category;
-      this.item.quantity = item.quantity;
-      this.item.unit = item.unit;
-      this.item.price = item.price;
-      this.item.date = item.date;
+  smartCopy(i: Item) {
+    if (i) {
+      this.item.id = i.id;
+      this.item.name = i.name;
+      this.item.brand = i.brand;
+      this.item.category = i.category;
+      this.item.quantity = i.quantity;
+      this.item.unit = i.unit;
+      this.item.price = i.price;
+      this.item.date = i.date;
 
-      this.origin.id = item.id;
-      this.origin.name = item.name;
-      this.origin.brand = item.brand;
-      this.origin.category = item.category;
-      this.origin.quantity = item.quantity;
-      this.origin.unit = item.unit;
-      this.origin.price = item.price;
-      this.origin.date = item.date;
+      this.origin.id = i.id;
+      this.origin.name = i.name;
+      this.origin.brand = i.brand;
+      this.origin.category = i.category;
+      this.origin.quantity = i.quantity;
+      this.origin.unit = i.unit;
+      this.origin.price = i.price;
+      this.origin.date = i.date;
     } else {
       this.item.id = 0;
       this.item.name = '';
       this.item.brand = '';
-      this.item.category = Category.BREAD;
-      this.item.quantity = 0;
-      this.item.unit = Unit.item;
+      this.item.category = null;
+      this.item.quantity = 1;
+      this.item.unit = null;
       this.item.price = 0;   
     }
   }
@@ -67,6 +74,8 @@ export class AddItemComponent {
   public checkChanges(origin: Item, item: Item): boolean {
     return JSON.stringify(origin) === JSON.stringify(item);
   }
+
+  
 
   public onNoClick(): void {
     this.dialogRef.close();

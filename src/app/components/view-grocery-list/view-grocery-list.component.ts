@@ -6,7 +6,6 @@ import { GroceryList } from 'src/app/models/GroceryList';
 import { Item } from 'src/app/models/Item';
 import { AdminService } from 'src/app/services/admin.service';
 import { AddItemComponent } from '../add-update-item/add-item.component';
-import { PrintService } from 'src/app/services/print.service';
 import { MatPaginator } from '@angular/material/paginator';
 
 export interface DialogData {
@@ -27,7 +26,7 @@ export class ViewGroceryListComponent {
   columnsToDisplay = ['tick', 'name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date', 'updateItem', 'deleteItem'];
 
   constructor(public dialogRef: MatDialogRef<ViewGroceryListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, public printService: PrintService, private adminService: AdminService, public dialog: MatDialog) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private adminService: AdminService, public dialog: MatDialog) {
     this.smartCopy(data.groceryList);
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;

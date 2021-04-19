@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Consumer } from 'src/app/models/Consumer';
 import { GroceryList } from 'src/app/models/GroceryList';
 import { Item } from 'src/app/models/Item';
 import { AdminService } from 'src/app/services/admin.service';
@@ -20,6 +21,7 @@ export class CreateGroceryListComponent implements OnInit {
 
   exampleForm: FormGroup;
   itemsArray: any = new MatTableDataSource<Item>();
+  consumers = [];
   groceryList = new GroceryList();
   item: Item;
   public resultDialog: Item;
@@ -32,7 +34,7 @@ export class CreateGroceryListComponent implements OnInit {
     this.itemsArray.paginator = this.paginator;
   }
 
-  constructor(public dialog: MatDialog, private adminService: AdminService, public printService: PrintService) { }
+  constructor(public dialog: MatDialog, private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.exampleForm = new FormGroup({
@@ -41,6 +43,10 @@ export class CreateGroceryListComponent implements OnInit {
       ConsumerName: new FormControl('', Validators.required),
       ShopName: new FormControl('', Validators.required),
     });
+    this.adminService.getAllConsumers().subscribe(
+      (response) => { this.consumers = response as Consumer[]; },
+      (err) => { alert(err.error); }
+    )
   }
 
   public addItem() {
@@ -97,6 +103,12 @@ export class CreateGroceryListComponent implements OnInit {
     return this.itemsArray.data.map(t => t.cost).reduce((acc, value) => acc + value, 0);
   }
 
+  changeConsumerName(value) {
+    console.log(value)
+    this.exampleForm.controls.ConsumerName.setValue(value, {
+      onlySelf: true
+    })
+  }
 
   submitForm() {
     this.groceryList.date = this.exampleForm.get('Date').value;
