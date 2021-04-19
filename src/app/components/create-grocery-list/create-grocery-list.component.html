@@ -7,7 +7,7 @@
     <mat-card-title style="font-family: Lobster; font-size:3vw; text-align:center;"> Grocery List </mat-card-title>
     <br>
     <form [formGroup]="exampleForm">
-      <div fxLayout="row" fxLayoutAlign="space-around center">
+      <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
         <mat-form-field>
           <input matInput [matDatepicker]="picker" formControlName="Date" placeholder="Date" [min]="todayDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

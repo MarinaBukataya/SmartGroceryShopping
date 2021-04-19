@@ -12,15 +12,14 @@ import { LoginResponse } from '../models/LoginResponse';
   providedIn: 'root'
 })
 export class AdminService {
-  //private BASE_URL = 'https://encoded-breaker-309609.ew.r.appspot.com/admin'
-
-  private BASE_URL = 'http://localhost:8080/admin'
+  private BASE_URL = 'https://encoded-breaker-309609.ew.r.appspot.com/admin'
+  //private BASE_URL = 'http://localhost:8080/admin'
 
   constructor(private httpClient: HttpClient) { }
 
   public signup(administrator: Administrator): Observable<any> {
     return this.httpClient.post<any>(this.BASE_URL + '/signup-administrator', administrator);
-  } 
+  }
 
   public login(loginDetails: LoginDetails): Observable<LoginResponse> {
     return this.httpClient.post<LoginResponse>(this.BASE_URL + '/login/' + loginDetails.name + '/' + loginDetails.password, null);
@@ -74,15 +73,15 @@ export class AdminService {
 
   public getItemsByYearAndMonth(year: number, month: number): Observable<any> {
     return this.httpClient.get<any>(this.BASE_URL + '/get-items-byyearandmonth/' + year + '/' + month);
-  } 
+  }
 
-  public getItemsByCategory(category: string): Observable<any>{
+  public getItemsByCategory(category: string): Observable<any> {
     return this.httpClient.get<any>(this.BASE_URL + '/get-items-bycategory/' + category);
   }
 
   public getItemsByCategoryYearAndMonth(category: string, year: number, month: number): Observable<any> {
     return this.httpClient.get<any>(this.BASE_URL + '/get-items-bycategoryyearandmonth/' + category + '/' + year + '/' + month);
-  } 
+  }
   public getAllConsumers(): Observable<any> {
     return this.httpClient.get<any>(this.BASE_URL + '/get-allconsumers');
   }
