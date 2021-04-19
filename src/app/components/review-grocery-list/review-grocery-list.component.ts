@@ -8,7 +8,6 @@ import { AddItemComponent } from '../add-update-item/add-item.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { GroceryListStatus } from 'src/app/models/GroceryListStatus';
 import { MatPaginator } from '@angular/material/paginator';
-import { PrintService } from 'src/app/services/print.service';
 
 
 export interface DialogData {
@@ -106,14 +105,6 @@ export class ReviewGroceryListComponent {
 
   public onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  printList() {
-    window.frames["print_frame"].document.body.innerHTML = document.getElementById("printableTable").innerHTML;
-    window.frames["print_frame"].window.focus();
-   this.printService.printDocument('review-list');
-  
-    
   }
 
 

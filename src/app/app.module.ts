@@ -28,7 +28,6 @@ import { ConsumerComponent } from './components/consumer/consumer.component';
 import { CreateUpdateCustomerComponent } from './components/create-update-customer/create-update-customer.component';
 import { ReviewGroceryListComponent } from './components/review-grocery-list/review-grocery-list.component';
 import { ViewAllItemsComponent } from './components/view-all-items/view-all-items.component';
-import { PrintLayoutComponent } from './components/print-layout/print-layout.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { HomeComponent } from './components/home/home.component';
@@ -50,7 +49,6 @@ import { RegistrationComponent } from './components/registration/registration.co
     CreateUpdateCustomerComponent,
     ReviewGroceryListComponent,
     ViewAllItemsComponent,
-    PrintLayoutComponent,
     StatisticsComponent,
     ChartComponent,
     HomeComponent,

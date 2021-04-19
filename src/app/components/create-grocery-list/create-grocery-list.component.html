@@ -1,6 +1,6 @@
   <mat-card style="margin: 5px 20px 15px 20px;">
-    <mat-card-actions align="end" class="noPrint">
-      <button mat-stroked-button [routerLink]="['/admin']" style="margin-left: 30px;" class="noPrint"> Back </button>
+    <mat-card-actions align="end">
+      <button mat-stroked-button [routerLink]="['/admin']" style="margin-left: 30px;"> Back </button>
       <div fxFlex></div>
     <mat-card-title style="font-family: Lobster; font-size:3vw; text-align:center;"> Grocery List </mat-card-title>
     <br>
@@ -90,12 +90,12 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 
-      <div class="noPrint">
+
         <mat-card-actions fxLayout="row wrap" fxLayoutGap="25px" fxLayoutAlign="center">
           <button type="button" mat-flat-button color="warn" [disabled]="exampleForm.invalid"
             [routerLink]="['/admin']" style="width: 88.53px;"(click)="submitForm()"> Submit </button>
           <button mat-flat-button color="primary" (click)="addItem()">Add item</button>
         </mat-card-actions>
-      </div>
+  
     </form>
   </mat-card>

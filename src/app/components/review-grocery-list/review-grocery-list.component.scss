@@ -19,22 +19,3 @@ table {
   text-decoration: line-through;
 }
 
-@media print {
- #printableTable {  
-    margin: 0px auto; 
-    top: 0px; 
-    bottom: 0px; 
-    width: auto;
-    height: 100vh;
-  }
-
-  .noPrint {
-    display: none;
-  }
-
-  .isPrinting app-print-layout {
-    margin: 15% auto;
-    display: block;
-  }
-}
-

@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GroceryList } from 'src/app/models/GroceryList';
 import { Item } from 'src/app/models/Item';
 import { AdminService } from 'src/app/services/admin.service';
-import { PrintService } from 'src/app/services/print.service';
 import { AddItemComponent } from '../add-update-item/add-item.component';
 
 
@@ -112,8 +111,5 @@ export class CreateGroceryListComponent implements OnInit {
     );
   }
 
-  printList() {
-    this.columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost'];
-    this.printService.printDocument('create-list');
-  }
+
 }

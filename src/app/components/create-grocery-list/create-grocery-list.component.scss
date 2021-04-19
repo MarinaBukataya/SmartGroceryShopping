@@ -21,18 +21,3 @@ tr.mat-footer-row {
 .mat-column-deleteItem {
   width: 5rem;
 }
-
-@media print {
-  th.mat-header-cell {
-    display: table-header-group;
-  }
-
-  .noPrint {
-    display: none;
-  }
-
-  .isPrinting app-print-layout {
-    margin: 15% auto;
-    display: block;
-  }
-}
