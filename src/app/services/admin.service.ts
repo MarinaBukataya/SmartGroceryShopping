@@ -12,8 +12,8 @@ import { LoginResponse } from '../models/LoginResponse';
   providedIn: 'root'
 })
 export class AdminService {
-  private BASE_URL = 'https://encoded-breaker-309609.ew.r.appspot.com/admin'
-  //private BASE_URL = 'http://localhost:8080/admin'
+  //private BASE_URL = 'https://encoded-breaker-309609.ew.r.appspot.com/admin'
+  private BASE_URL = 'http://localhost:8080/admin'
 
   constructor(private httpClient: HttpClient) { }
 

@@ -12,7 +12,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <div class="example-sidenav-content">
-
+    <p style="font-family: Lobster; font-size:3vw; display: inline-block; margin-top: 20px;">Items history</p>
     <table mat-table [dataSource]="itemsArray" matSort>
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
       <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>

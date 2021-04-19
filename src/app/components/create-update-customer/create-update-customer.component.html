@@ -1,18 +1,21 @@
-
 <h1 mat-dialog-title>{{type}} consumer</h1>
 
-<div mat-dialog-content>
+<div mat-dialog-content [formGroup]="consumerRegistration">
 
   <mat-form-field>
-    <input matInput [(ngModel)]="consumer.name" placeholder="Consumer name">
+    <input matInput placeholder="Consumer name" formControlName="name">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput [(ngModel)]="consumer.password" placeholder="Password">
+    <input matInput placeholder="Password" formControlName="password">
+    <mat-hint>The password should be of 6 or more characters that contains at least one number, one lowercase
+      letter, and one uppercase letter</mat-hint>
   </mat-form-field>
-
+  <br>
+  <br>
+  <br>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()"> Close </button>
-    <button mat-button [matDialogClose]="consumer">Save</button>
+    <button mat-button [disabled]="consumerRegistration.invalid" [matDialogClose]="consumerRegistration.value">{{type}}</button>
   </div>
 </div>

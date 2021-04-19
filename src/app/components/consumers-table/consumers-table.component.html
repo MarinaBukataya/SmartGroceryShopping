@@ -1,14 +1,18 @@
 <mat-sidenav-container class="example-sidenav-container">
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
     <mat-nav-list class="dashboard">
-      <a mat-list-item [routerLink]="['/admin']"><span class="material-icons">local_grocery_store</span> Grocery Lists </a>
+      <a mat-list-item [routerLink]="['/admin']"><span class="material-icons">local_grocery_store</span> Grocery Lists
+      </a>
       <a mat-list-item [routerLink]="['/items']"><span class="material-icons">reorder</span> Items </a>
       <a mat-list-item [routerLink]="['/statistics']"><span class="material-icons">donut_small</span> Statistics </a>
       <mat-divider></mat-divider>
-      <a mat-list-item href="['']" (click)=logout()><mat-icon>logout</mat-icon> Log out </a>
+      <a mat-list-item href="['']" (click)=logout()>
+        <mat-icon>logout</mat-icon> Log out
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <div class="example-sidenav-content">
+    <p style="font-family: Lobster; font-size:3vw;">Consumers</p>
     <div class="wrapper" fxLayout="row" fxLayoutAlign="end end">
       <div class="example-button-container">
         <button mat-fab color="warn" aria-label="Example icon button with a plus one icon" (click)="addConsumer()"

@@ -1,6 +1,4 @@
-<button mat-stroked-button (click)="printList()" style="margin-right: 30px; " class="noPrint"> Print </button>
-<br>
-<br>
+
 <div id="printableTable">
   <table mat-table [dataSource]="itemsArray">
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
@@ -62,12 +60,12 @@
   <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
 </div>
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-<div class="noPrint">
+
   <mat-dialog-actions align="end">
     <button mat-stroked-button color="accent" (click)="onNoClick()">Close</button>
     <button button mat-flat-button color="primary" (click)="close()"
       *ngIf="groceryList.status === GroceryListStatus.ACTIVE">Save</button>
   </mat-dialog-actions>
-</div>
 
-<router-outlet name="print"></router-outlet>
+
+

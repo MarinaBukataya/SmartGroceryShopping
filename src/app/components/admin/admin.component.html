@@ -5,16 +5,21 @@
       <a mat-list-item [routerLink]="['/items']"><span class="material-icons">reorder</span> All items </a>
       <a mat-list-item [routerLink]="['/statistics']"><span class="material-icons">donut_small</span> Statistics </a>
       <mat-divider></mat-divider>
-      <a mat-list-item [routerLink]="['']" (click)=logout()><mat-icon>logout</mat-icon> Log out </a>
+      <a mat-list-item [routerLink]="['']" (click)=logout()>
+        <mat-icon>logout</mat-icon> Log out
+      </a>
     </mat-nav-list>
   </mat-sidenav>
+
   <div class="example-sidenav-content">
+    <p style="font-family: Lobster; font-size:3vw;display: inline-block; margin-top: 20px;">My lists</p>
     <div class="wrapper" fxLayout="row" fxLayoutAlign="space-around center">
       <mat-form-field>
         <input matInput [matDatepicker]="picker" placeholder="Choose a month" [formControl]="date" readonly>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker (monthSelected)="monthSelected($event)" startView="multi-year"></mat-datepicker>
       </mat-form-field>
+
       <div class="example-button-container">
         <button mat-fab color="warn" aria-label="Example icon button with a plus one icon"
           [routerLink]="['/create-list']" [disabled]="isRed()" matTooltip="Create a list" [matTooltipPosition]="'right'"

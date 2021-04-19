@@ -29,6 +29,7 @@ th.mat-header-cell {
 .example-sidenav-container {
   height: calc(100% - 64px);
   background-color: gainsboro !important;
+  text-align: center;
 }
 
 .example-sidenav {
@@ -38,3 +39,11 @@ th.mat-header-cell {
 table button {
   margin: 10px 5px;
 }
+
+div.example-sidenav-content p {
+  margin: 0;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) }

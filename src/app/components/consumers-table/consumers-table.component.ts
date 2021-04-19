@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Consumer } from 'src/app/models/Consumer';
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthorizationService } from 'src/app/services/authorization.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { CreateUpdateCustomerComponent } from '../create-update-customer/create-update-customer.component';
 
 @Component({
@@ -17,7 +18,7 @@ export class ConsumersTableComponent implements OnInit {
   columnsToDisplay = ['name', 'password', 'updateConsumer', 'deleteConsumer'];
   public resultDialog: Consumer;
 
-  constructor(public dialog: MatDialog, private adminService: AdminService, private authorizationService: AuthorizationService) { }
+  constructor(public dialog: MatDialog, private adminService: AdminService, private authorizationService: AuthorizationService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.adminService.getAllConsumers().subscribe(
@@ -60,7 +61,7 @@ export class ConsumersTableComponent implements OnInit {
               this.consumersArray.data.push(res);
               this.consumersArray._data.next(this.consumersArray.data);
             },
-            (err) => { alert(err.message); }
+            (err) => { this.notificationService.error(err.error); }
           );
         } else {
           this.adminService.updateConsumer(this.resultDialog).subscribe(
@@ -69,7 +70,7 @@ export class ConsumersTableComponent implements OnInit {
               this.consumersArray.data.splice(idx, 1, res);
               this.consumersArray._data.next(this.consumersArray.data);
             },
-            (err) => { alert(err.message); }
+            (err) => { this.notificationService.error(err.error); }
           );
         }
       }

@@ -2,8 +2,6 @@
     <mat-card-actions align="end" class="noPrint">
       <button mat-stroked-button [routerLink]="['/admin']" style="margin-left: 30px;" class="noPrint"> Back </button>
       <div fxFlex></div>
-      <button mat-stroked-button (click)="printList()" style="margin-right: 30px; " class="noPrint"> Print </button>
-    </mat-card-actions>
     <mat-card-title style="font-family: Lobster; font-size:3vw; text-align:center;"> Grocery List </mat-card-title>
     <br>
     <form [formGroup]="exampleForm">
@@ -101,5 +99,3 @@
       </div>
     </form>
   </mat-card>
-
-  <router-outlet name="print"></router-outlet>

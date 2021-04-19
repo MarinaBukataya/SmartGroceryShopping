@@ -36,7 +36,7 @@ export class RegistrationComponent implements OnInit {
     this.administrator.name = this.registrationForm.get('username').value;
     this.administrator.password = this.registrationForm.get('password').value;
     this.adminService.signup(this.administrator).subscribe(() => {
-      this.notificationService.success('Successfully signed up');
+      this.notificationService.success('Registration successful');
       this.router.navigate(['login']);
     },
       (err) => { this.notificationService.error(err.error) });

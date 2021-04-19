@@ -6,12 +6,13 @@ table {
   margin-right: auto;
   border-collapse: collapse;
   background-color: floralwhite !important;
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px;
   overflow: hidden !important;
 }
 
 .paginator {
   background-color: gainsboro !important;
+  margin-right: 10%;
 }
 
 td.mat-cell,
@@ -23,8 +24,10 @@ th.mat-header-cell {
 .example-sidenav-container {
   height: calc(100% - 64px);
   background-color: gainsboro !important;
+  text-align: center; 
 }
 
 .example-sidenav {
   background-color: whitesmoke !important;
 }
+
