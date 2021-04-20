@@ -5,7 +5,7 @@
       <a mat-list-item [routerLink]="['/items']"><span class="material-icons">reorder</span> All items </a>
       <a mat-list-item [routerLink]="['/statistics']"><span class="material-icons">donut_small</span> Statistics </a>
       <mat-divider></mat-divider>
-      <a mat-list-item [routerLink]="['']" (click)=logout()>
+      <a mat-list-item routerLink="/" (click)=logout()>
         <mat-icon>logout</mat-icon> Log out
       </a>
     </mat-nav-list>
@@ -22,7 +22,7 @@
 
       <div class="example-button-container">
         <button mat-fab color="warn" aria-label="Example icon button with a plus one icon"
-          [routerLink]="['/create-list']" [disabled]="isRed()" matTooltip="Create a list" [matTooltipPosition]="'right'"
+          [routerLink]="['/create-list']" [disabled]="isRed()" matTooltip="Create new list" [matTooltipPosition]="'right'"
           matTooltipClass="custom-tooltip-blue">
           <mat-icon>add</mat-icon>
         </button>
@@ -70,26 +70,41 @@
       </ng-container>
       <ng-container matColumnDef="viewList">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let groceryList" (click)="viewItems(groceryList)" matTooltip="View list"
-          [matTooltipPosition]="'above'" matTooltipClass="custom-tooltip-blue"> <span class="material-icons">
-            view_list
-          </span> </td>
+        <td mat-cell *matCellDef="let groceryList"> <button mat-icon-button (click)="viewItems(groceryList)"
+            matTooltip="View list" [matTooltipPosition]="'above'" matTooltipClass="custom-tooltip-blue"> <span
+              class="material-icons">
+              view_list
+            </span>
+          </button></td>
       </ng-container>
       <ng-container matColumnDef="done">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let groceryList" (click)="changeStatusToFinished(groceryList)"
-          [hidden]="groceryList.status === GroceryListStatus.IRRELEVANT" matTooltip="Mark as done"
-          [matTooltipPosition]="'above'" matTooltipClass="custom-tooltip-blue"> <span class="material-icons">
-            check_circle_outline
-          </span> </td>
+        <td mat-cell *matCellDef="let groceryList" [hidden]="groceryList.status === GroceryListStatus.IRRELEVANT">
+          <button mat-icon-button (click)="changeStatusToFinished(groceryList)" matTooltip="Mark as done"
+            [matTooltipPosition]="'above'" matTooltipClass="custom-tooltip-blue"> <span
+              class="material-icons">check_circle_outline</span>
+          </button>
+        </td>
       </ng-container>
       <ng-container matColumnDef="dismiss">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let groceryList" (click)="changeStatusToIrrelevant(groceryList)"
-          [hidden]="groceryList.status === GroceryListStatus.IRRELEVANT" matTooltip="Mark as irrelevant"
-          [matTooltipPosition]="'above'" matTooltipClass="custom-tooltip-blue"> <span class="material-icons">
-            highlight_off
-          </span> </td>
+        <td mat-cell *matCellDef="let groceryList" [hidden]="groceryList.status === GroceryListStatus.IRRELEVANT">
+          <button mat-icon-button (click)="changeStatusToIrrelevant(groceryList)" matTooltip="Mark as irrelevant"
+            [matTooltipPosition]="'above'" matTooltipClass="custom-tooltip-blue"> <span class="material-icons">
+              highlight_off
+            </span></button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let groceryList">
+          <button mat-icon-button (click)="deleteList(groceryList.id)" matTooltip="Delete list"
+            [matTooltipPosition]="'above'" matTooltipClass="custom-tooltip-blue">
+            <mat-icon><span class="material-icons-outlined">
+                delete_outline
+              </span></mat-icon>
+          </button>
+        </td>
       </ng-container>
     </table>
   </div>

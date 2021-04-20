@@ -94,9 +94,9 @@
 
 
     <mat-card-actions fxLayout="row wrap" fxLayoutGap="25px" fxLayoutAlign="center">
-      <button type="button" mat-flat-button color="warn" [disabled]="exampleForm.invalid" [routerLink]="['/admin']"
+      <button type="button" mat-flat-button color="warn" [disabled]="exampleForm.invalid || itemsArray.data.length === 0" [routerLink]="['/admin']"
         style="width: 88.53px;" (click)="submitForm()"> Submit </button>
-      <button mat-flat-button color="primary" (click)="addItem()">Add item</button>
+      <button mat-flat-button color="primary" (click)="addItem()"> Add item </button>
     </mat-card-actions>
 
   </form>

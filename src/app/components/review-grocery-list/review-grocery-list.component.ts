@@ -5,7 +5,6 @@ import { GroceryList } from 'src/app/models/GroceryList';
 import { Item } from 'src/app/models/Item';
 import { ConsumerService } from 'src/app/services/consumer.service';
 import { AddItemComponent } from '../add-update-item/add-item.component';
-import { SelectionModel } from '@angular/cdk/collections';
 import { GroceryListStatus } from 'src/app/models/GroceryListStatus';
 import { MatPaginator } from '@angular/material/paginator';
 
@@ -25,9 +24,9 @@ export class ReviewGroceryListComponent {
   itemsArray: any = new MatTableDataSource<Item>();
   public resultDialog: Item;
   columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date', 'updateItem', 'select'];
-  selection = new SelectionModel<Item>(true, []);
   todayDate: Date = new Date();
   GroceryListStatus = GroceryListStatus;
+  isChecked: boolean;
 
   constructor(public dialogRef: MatDialogRef<ReviewGroceryListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private consumerService: ConsumerService, public dialog: MatDialog) {
@@ -43,7 +42,6 @@ export class ReviewGroceryListComponent {
     this.consumerService.getOneGroceryList(groceryList.id).subscribe(
       (response) => {
         this.groceryList = response; this.itemsArray.data = this.groceryList.items;
-        this.itemsArray.data.filter(item => item.date !== null).forEach(item => this.selection.select(item));
         if (this.groceryList.status !== GroceryListStatus.ACTIVE) {
           this.columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date', 'select'];
         }
@@ -51,6 +49,7 @@ export class ReviewGroceryListComponent {
       (err) => { alert(err.error); }
     )
   }
+
   public updateItem(item: Item) {
     this.openDialog(item);
   }
@@ -90,8 +89,24 @@ export class ReviewGroceryListComponent {
     return this.itemsArray.data.map(t => t.cost).reduce((acc, value) => acc + value, 0).toFixed(2);
   }
 
+
+
   fillTheDate(item: Item) {
-    item.date = this.todayDate;
+
+
+    if (item.date === null) {
+  
+      item.date = this.todayDate;
+      this.consumerService.updateItem(item).subscribe(
+        (res) => {
+          const idx = this.itemsArray.data.findIndex(i => i.id === item.id);
+          this.itemsArray.data.splice(idx, 1, res);
+          // this.itemsArray._data.next(this.itemsArray.data);
+        },
+        (err) => { alert(err.message); }
+      );
+    } else
+    item.date = null;
     this.consumerService.updateItem(item).subscribe(
       (res) => {
         const idx = this.itemsArray.data.findIndex(i => i.id === item.id);
@@ -100,7 +115,6 @@ export class ReviewGroceryListComponent {
       },
       (err) => { alert(err.message); }
     );
-
   }
 
   public onNoClick(): void {

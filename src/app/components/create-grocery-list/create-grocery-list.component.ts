@@ -54,6 +54,7 @@ export class CreateGroceryListComponent implements OnInit {
   }
 
   public updateItem(item: Item) {
+    console.log(item.id);
     this.openDialog(item);
   }
 
@@ -86,6 +87,7 @@ export class CreateGroceryListComponent implements OnInit {
           );
         } else {
           this.resultDialog.cost = this.resultDialog.price * this.resultDialog.quantity;
+          console.log(this.resultDialog.id);
           this.adminService.updateItem(this.resultDialog).subscribe(
             (res) => {
               const idx = this.itemsArray.data.findIndex(i => i.id === item.id);
@@ -104,7 +106,6 @@ export class CreateGroceryListComponent implements OnInit {
   }
 
   changeConsumerName(value) {
-    console.log(value)
     this.exampleForm.controls.ConsumerName.setValue(value, {
       onlySelf: true
     })

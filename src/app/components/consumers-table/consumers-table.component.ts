@@ -33,10 +33,13 @@ export class ConsumersTableComponent implements OnInit {
       (err) => { alert(err.message); }
     )
   }
+
   public addConsumer() {
     this.openDialog(null);
   }
+
   public updateConsumer(consumer: Consumer) {
+    console.log(consumer.id);
     this.openDialog(consumer);
   }
   openDialog(consumer: Consumer) {
@@ -47,6 +50,7 @@ export class ConsumersTableComponent implements OnInit {
     } else {
       type = 'Add';
     }
+
     const dialogRef = this.dialog.open(CreateUpdateCustomerComponent, {
       width: '300px',
       data: { consumer, type }
@@ -55,7 +59,6 @@ export class ConsumersTableComponent implements OnInit {
       if (result) {
         this.resultDialog = result;
         if (type === 'Add') {
-
           this.adminService.addConsumer(this.resultDialog).subscribe(
             (res) => {
               this.consumersArray.data.push(res);

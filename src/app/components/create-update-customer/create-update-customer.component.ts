@@ -25,6 +25,7 @@ export class CreateUpdateCustomerComponent implements OnInit {
     if (data.consumer) {
 
       this.consumerRegistration = new FormGroup({
+        id: new FormControl(data.consumer.id),
         name: new FormControl(data.consumer.name, Validators.required),
         password: new FormControl(data.consumer.password, [Validators.required, Validators.pattern(this.passwordPattern)]),
       });

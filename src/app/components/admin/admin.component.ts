@@ -35,7 +35,7 @@ export const MY_FORMATS = {
 export class AdminComponent implements OnInit, AfterViewInit {
 
   groceryListsArray: any = new MatTableDataSource<GroceryList>();
-  columnsToDisplay = ['date', 'status', 'consumerName', 'shopName', 'totalCost', 'viewList', 'done', 'dismiss'];
+  columnsToDisplay = ['date', 'status', 'consumerName', 'shopName', 'totalCost', 'viewList', 'done', 'dismiss', 'delete'];
   public resultDialog: GroceryList;
   date = new FormControl();
   todayDate: Date = new Date();
@@ -45,8 +45,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatDatepicker) picker;
 
- 
-  constructor(private adminService: AdminService, public dialog: MatDialog, private authorizationService: AuthorizationService) { }
+
+  constructor(private adminService: AdminService, public dialog: MatDialog, private authorizationService: AuthorizationService) {
+    
+
+  }
 
   ngOnInit(): void {
     this.date.setValue(this.todayDate);
@@ -58,6 +61,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.groceryListsArray.sort = this.sort;
+
   }
 
   monthSelected(params) {
@@ -132,6 +136,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   isRed() {
     return this.groceryListsArray.data.some(x => x.status === GroceryListStatus.ACTIVE && this.isPastDate(x.date));
+  }
+
+  deleteList(groceryListId: number) {
+    this.adminService.deleteGroceryList(groceryListId).subscribe(
+      () => { this.groceryListsArray.data = this.groceryListsArray.data.filter(g => g.id !== groceryListId); },
+      (err) => { alert(err.message); }
+    )
   }
 
   public getToken(): string {

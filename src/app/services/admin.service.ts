@@ -50,6 +50,14 @@ export class AdminService {
     return this.httpClient.put<any>(this.BASE_URL + '/update-grocerylist', groceryList);
   }
 
+  public updateConsumer(consumer: Consumer): Observable<any> {
+    return this.httpClient.put<any>(this.BASE_URL + '/update-consumer', consumer);
+  }
+  
+  public deleteGroceryList(groceryListId: number): Observable<any> {
+    return this.httpClient.delete<any>(this.BASE_URL + '/delete-grocerylist/' + groceryListId);
+  }
+
   public addItem(item: Item): Observable<any> {
     const it = { name: item.name, brand: item.brand, category: item.category, quantity: item.quantity, unit: item.unit, price: item.price, cost: item.cost, date: item.date };
     return this.httpClient.post<any>(this.BASE_URL + '/add-item', it);
@@ -89,10 +97,6 @@ export class AdminService {
   public addConsumer(consumer: Consumer): Observable<any> {
     const cons = { name: consumer.name, password: consumer.password };
     return this.httpClient.post<any>(this.BASE_URL + '/add-consumer', cons);
-  }
-
-  public updateConsumer(consumer: Consumer): Observable<any> {
-    return this.httpClient.put<any>(this.BASE_URL + '/update-consumer', consumer);
   }
 
   public deleteConsumer(consumerId: number): Observable<any> {

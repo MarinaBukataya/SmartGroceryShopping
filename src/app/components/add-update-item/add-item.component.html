@@ -1,42 +1,46 @@
 <h1 mat-dialog-title>{{type}} item</h1>
 
 <div mat-dialog-content>
-  <mat-form-field>
-    <input matInput [(ngModel)]="item.name" placeholder="Name">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [(ngModel)]="item.brand" placeholder="Brand">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select [(ngModel)]="item.category" placeholder="Category">
-      <mat-option *ngFor="let key of keys" [value]="category[key]">{{category[key]}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <input #quantityInfo="ngModel" required name="quantity" pattern="^(?:[1-9]|\d\d\d*)$" matInput
-      [(ngModel)]="item.quantity" min="1" placeholder="Quantity">
-    <mat-error *ngIf="quantityInfo.errors?.pattern">
-      Quantity should be 1 or more</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select [(ngModel)]="item.unit" placeholder="Unit">
-      <mat-option *ngFor="let key of keys1" [value]="unit[key]">{{unit[key]}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field *ngIf="type === 'Update'">
-    <input #priceInfo="ngModel" matInput pattern="^(?:[0-9]|\d\d\d*)$" [(ngModel)]="item.price" min="0"
-      placeholder="Price">
-    <mat-error *ngIf="priceInfo.errors?.pattern">
-      Price should be more than 0</mat-error>
-  </mat-form-field>
-  <mat-form-field *ngIf="type === 'Update'">
-    <input matInput [(ngModel)]="item.date" [matDatepicker]="picker" placeholder="Date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <form #formInfo="ngForm">
+    <mat-form-field>
+      <input matInput required [(ngModel)]="item.name" name="name" placeholder="Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="item.brand" name="brand" placeholder="Brand">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select required [(ngModel)]="item.category" name="category" placeholder="Category">
+        <mat-option *ngFor="let key of keys" [value]="category[key]">{{category[key]}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input #quantityInfo="ngModel" required name="quantity" pattern="^(?:[1-9]|\d\d\d*)$" matInput
+        [(ngModel)]="item.quantity" min="1" placeholder="Quantity">
+      <mat-error *ngIf="quantityInfo.errors?.pattern">
+        Quantity should be 1 or more</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select required [(ngModel)]="item.unit" name="unit" placeholder="Unit">
+        <mat-option *ngFor="let key of keys1" [value]="unit[key]">{{unit[key]}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="type === 'Update'">
+      <input #priceInfo="ngModel" matInput pattern="^(?:[0-9]|\d\d\d*)$" [(ngModel)]="item.price" name="price" min="0"
+        placeholder="Price">
+      <mat-error *ngIf="priceInfo.errors?.pattern">
+        Price should be more than 0</mat-error>
+    </mat-form-field>
+    <mat-form-field *ngIf="type === 'Update'">
+      <input matInput [(ngModel)]="item.date" name="date" [matDatepicker]="picker" min=todayDate placeholder="Date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()"> Close </button>
-  <button mat-button [disabled]="(checkChanges(origin, item) && type==='Update')"
+
+  <button mat-button [disabled]="(checkChanges(origin, item) && type==='Update') || formInfo.invalid"
     [matDialogClose]="item">{{type}}</button>
+
 </div>
