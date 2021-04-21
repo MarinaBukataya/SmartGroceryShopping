@@ -25,7 +25,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field *ngIf="type === 'Update'">
-      <input #priceInfo="ngModel" matInput pattern="^(?:[0-9]|\d\d\d*)$" [(ngModel)]="item.price" name="price" min="0"
+      <input #priceInfo="ngModel" matInput pattern="^\s*(?=.*[1-9])[\d,]*(?:\.\d{1,2})?\s*$" [(ngModel)]="item.price" name="price" min="0"
         placeholder="Price">
       <mat-error *ngIf="priceInfo.errors?.pattern">
         Price should be more than 0</mat-error>
