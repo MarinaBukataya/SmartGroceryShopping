@@ -63,7 +63,7 @@ body {
 }
 
 th.mat-header-cell,
-th.mat-sort-header,
+
 td.mat-cell {
   text-align: center !important;
 }
@@ -86,4 +86,8 @@ simple-snack-bar > span {
   margin: 0 auto;
   text-align:center !important;
   font-family: Roboto;
+}
+
+.text-center .mat-sort-header-container {
+  justify-content: center;
 }

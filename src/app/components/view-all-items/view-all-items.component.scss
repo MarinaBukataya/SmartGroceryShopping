@@ -15,19 +15,14 @@ table {
   margin-right: 10%;
 }
 
-td.mat-cell,
-th.mat-header-cell {
-  text-align: center;
-  justify-content: center;
-}
-
 .example-sidenav-container {
   height: calc(100% - 64px);
   background-color: gainsboro !important;
-  text-align: center; 
+  text-align: center;
 }
 
 .example-sidenav {
   background-color: whitesmoke !important;
 }
+
 

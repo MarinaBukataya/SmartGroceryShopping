@@ -47,16 +47,16 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   constructor(private adminService: AdminService, public dialog: MatDialog, private authorizationService: AuthorizationService) {
-    
 
   }
 
   ngOnInit(): void {
     this.date.setValue(this.todayDate);
+    setTimeout(() => {
     this.adminService.getCurrentMonthsGroceryLists().subscribe(
       (response) => { this.groceryListsArray.data = response as GroceryList[]; },
       (err) => { alert(err.error); }
-    )
+    )}, 1000);
   }
 
   ngAfterViewInit() {
