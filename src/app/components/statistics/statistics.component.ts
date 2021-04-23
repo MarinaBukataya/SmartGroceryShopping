@@ -52,18 +52,19 @@ export class StatisticsComponent implements OnInit {
       },
       (err) => { alert(err.error); }
     )
-
-    this.adminService.getCurrentMonthsItems().subscribe(
-      (response) => {
-        this.items = response;
-        this.items.forEach(i => {
-          if (this.chartLabels.indexOf(i.name) === -1) {
-            this.chartLabels.push(i.name);
-            this.chartData.push(((this.items.filter(x => x.name === i.name).length / this.items.length) * 100).toFixed(0));
-          }
-        });
-      },
-      (err) => { alert(err.error); });
+    setTimeout(() => {
+      this.adminService.getCurrentMonthsItems().subscribe(
+        (response) => {
+          this.items = response;
+          this.items.forEach(i => {
+            if (this.chartLabels.indexOf(i.name) === -1) {
+              this.chartLabels.push(i.name);
+              this.chartData.push(((this.items.filter(x => x.name === i.name).length / this.items.length) * 100).toFixed(0));
+            }
+          });
+        },
+        (err) => { alert(err.error); })
+    }, 1000);
 
     this.keys = Object.keys(this.category);
     this.type = new FormControl('ALL');
@@ -155,6 +156,7 @@ export class StatisticsComponent implements OnInit {
               if (this.itemsPerCategoryChartLabels.indexOf(i.name) === -1) {
                 this.itemsPerCategoryChartLabels.push(i.name);
                 this.itemsPerCategoryChartData.push(((this.items.filter(x => x.name === i.name).length / this.items.length) * 100).toFixed(0));
+                console.log(this.itemsPerCategoryChartData);
               }
             });
             this.monthlyExpensesByCategory = this.items.map(i => i.cost).reduce((sum, val) => sum + val, 0);

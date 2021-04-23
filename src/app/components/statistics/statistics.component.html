@@ -1,22 +1,19 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
     <mat-nav-list class="dashboard">
-      <a mat-list-item [routerLink]="['/admin']"><span class="material-icons">
-          local_grocery_store
-        </span> Grocery Lists </a>
+      <a mat-list-item [routerLink]="['/admin']"><span class="material-icons">local_grocery_store</span> Grocery Lists
+      </a>
       <a mat-list-item [routerLink]="['/consumers']"><span class="material-icons">face</span> Consumers </a>
-      <a mat-list-item [routerLink]="['/items']"><span class="material-icons">
-          reorder
-        </span> Items </a>
+      <a mat-list-item [routerLink]="['/items']"><span class="material-icons">reorder</span> Items </a>
       <mat-divider></mat-divider>
       <a mat-list-item routerLink="/" (click)=logout()>
         <mat-icon>logout</mat-icon> Log out
       </a>
     </mat-nav-list>
-
   </mat-sidenav>
 
   <div class="example-sidenav-content">
+    <p style="font-family: Lobster; font-size:3vw;display: inline-block; margin-top: 20px;">Statistics</p>
     <div class="wrapper" fxLayout="row" fxLayoutAlign="space-around center">
       <mat-form-field>
         <input matInput [matDatepicker]="picker" placeholder="Months" [formControl]="date" readonly>
@@ -24,21 +21,19 @@
         <mat-datepicker #picker (monthSelected)="monthSelected($event)" startView="multi-year"></mat-datepicker>
       </mat-form-field>
       <ng-container *ngIf="type.value === 'ALL'; else elseTemplate">
-        <p style="font-family: Lobster; font-size:3vw; width:300px; text-align:center;"> In
-          {{date.value | date: 'MMMM yyyy'}} you spent
+        <p style="font-size:2vw;"> In {{date.value | date: 'MMMM yyyy'}} you spent
           {{ monthlyExpenses | currency}}
         </p>
       </ng-container>
       <ng-template #elseTemplate>
-        <p style="font-family: Lobster; font-size:3vw; width:300px; text-align:center;"> In
-          {{date.value | date: 'MMMM yyyy'}} you spent
+        <p style="font-size:2vw;"> In {{date.value | date: 'MMMM yyyy'}} you spent
           {{ monthlyExpensesByCategory | currency}} on {{ type.value }}
         </p>
       </ng-template>
       <mat-form-field>
         <mat-select (selectionChange)="categorySelected($event.value)" placeholder="Categories" [formControl]="type">
           <mat-option [value]="'ALL'">ALL</mat-option>
-          <mat-option *ngFor="let key of keys; index as i" [value]="key">{{category[key]}}</mat-option>
+          <mat-option *ngFor="let key of keys" [value]="key">{{category[key]}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -49,7 +44,7 @@
         <mat-grid-tile>
           <ng-container *ngIf="type.value === 'ALL'; else elseTemplate1">
             <div>
-              <mat-title *ngIf="chartLabels.length !== 0" style="font-family: Lobster; font-size:2vw;"> Items you bought
+              <mat-title style="font-size:2vw;"> on these items
               </mat-title>
               <br>
               <br>
@@ -58,6 +53,9 @@
           </ng-container>
           <ng-template #elseTemplate1>
             <div>
+              <mat-title style="font-size:2vw;"> List of items </mat-title>
+              <br>
+              <br>
               <table mat-table [dataSource]="items" class="mat-elevation-z8">
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef> Item </th>
@@ -84,7 +82,7 @@
         <mat-grid-tile>
           <ng-container *ngIf="type.value === 'ALL'; else elseTemplate2">
             <div>
-              <mat-title *ngIf="categoriesChartLabels.length !== 0" style="font-family: Lobster; font-size:2vw;"> from
+              <mat-title style="font-size:2vw;"> from
                 these categories </mat-title>
               <br>
               <br>

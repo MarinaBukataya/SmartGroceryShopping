@@ -23,7 +23,7 @@ export class ReviewGroceryListComponent {
   groceryList = new GroceryList();
   itemsArray: any = new MatTableDataSource<Item>();
   public resultDialog: Item;
-  columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date', 'updateItem', 'select'];
+  columnsToDisplay = ['position', 'name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date', 'updateItem', 'select'];
   todayDate: Date = new Date();
   GroceryListStatus = GroceryListStatus;
   isChecked: boolean;
@@ -43,7 +43,7 @@ export class ReviewGroceryListComponent {
       (response) => {
         this.groceryList = response; this.itemsArray.data = this.groceryList.items;
         if (this.groceryList.status !== GroceryListStatus.ACTIVE) {
-          this.columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date', 'select'];
+          this.columnsToDisplay = ['position', 'name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date', 'select'];
         }
       },
       (err) => { alert(err.error); }
@@ -92,10 +92,7 @@ export class ReviewGroceryListComponent {
 
 
   fillTheDate(item: Item) {
-
-
     if (item.date === null) {
-  
       item.date = this.todayDate;
       this.consumerService.updateItem(item).subscribe(
         (res) => {
