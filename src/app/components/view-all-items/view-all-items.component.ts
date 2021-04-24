@@ -12,7 +12,7 @@ import { AuthorizationService } from 'src/app/services/authorization.service';
   styleUrls: ['./view-all-items.component.scss']
 })
 export class ViewAllItemsComponent implements OnInit, AfterViewInit {
-  columnsToDisplay = ['name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date'];
+  columnsToDisplay = ['position', 'name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date'];
   itemsArray: any = new MatTableDataSource<Item>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

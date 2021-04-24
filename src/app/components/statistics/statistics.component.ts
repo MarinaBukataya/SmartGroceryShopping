@@ -156,7 +156,6 @@ export class StatisticsComponent implements OnInit {
               if (this.itemsPerCategoryChartLabels.indexOf(i.name) === -1) {
                 this.itemsPerCategoryChartLabels.push(i.name);
                 this.itemsPerCategoryChartData.push(((this.items.filter(x => x.name === i.name).length / this.items.length) * 100).toFixed(0));
-                console.log(this.itemsPerCategoryChartData);
               }
             });
             this.monthlyExpensesByCategory = this.items.map(i => i.cost).reduce((sum, val) => sum + val, 0);

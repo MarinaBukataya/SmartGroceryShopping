@@ -66,8 +66,7 @@ export class AddItemComponent {
       this.item.brand = '';
       this.item.category = null;
       this.item.quantity = 1;
-      this.item.unit = null;
-      this.item.price = 0;   
+      this.item.unit = null;  
     }
   }
 

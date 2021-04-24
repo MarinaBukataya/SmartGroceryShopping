@@ -35,7 +35,7 @@ export const MY_FORMATS = {
 export class AdminComponent implements OnInit, AfterViewInit {
 
   groceryListsArray: any = new MatTableDataSource<GroceryList>();
-  columnsToDisplay = ['date', 'status', 'consumerName', 'shopName', 'totalCost', 'viewList', 'done', 'dismiss', 'delete'];
+  columnsToDisplay = ['position', 'date', 'status', 'consumerName', 'shopName', 'totalCost', 'viewList', 'done', 'dismiss', 'delete'];
   public resultDialog: GroceryList;
   date = new FormControl();
   todayDate: Date = new Date();
@@ -53,10 +53,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.date.setValue(this.todayDate);
     setTimeout(() => {
-    this.adminService.getCurrentMonthsGroceryLists().subscribe(
-      (response) => { this.groceryListsArray.data = response as GroceryList[]; },
-      (err) => { alert(err.error); }
-    )}, 1000);
+      this.adminService.getCurrentMonthsGroceryLists().subscribe(
+        (response) => { this.groceryListsArray.data = response as GroceryList[]; },
+        (err) => { alert(err.error); }
+      )
+    }, 1000);
   }
 
   ngAfterViewInit() {

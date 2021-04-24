@@ -23,7 +23,7 @@ export class ViewGroceryListComponent {
   item = new Item();
   itemsArray: any = new MatTableDataSource<Item>();
   public resultDialog: Item;
-  columnsToDisplay = ['tick', 'name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date', 'updateItem', 'deleteItem'];
+  columnsToDisplay = ['position', 'name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date', 'updateItem', 'deleteItem', 'tick'];
 
   constructor(public dialogRef: MatDialogRef<ViewGroceryListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private adminService: AdminService, public dialog: MatDialog) {
@@ -40,7 +40,7 @@ export class ViewGroceryListComponent {
       (response) => {
         this.groceryList = response; this.itemsArray.data = this.groceryList.items;
         if (this.groceryList.status !== GroceryListStatus.ACTIVE) {
-          this.columnsToDisplay = ['tick', 'name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date'];
+          this.columnsToDisplay = ['position', 'name', 'brand', 'category', 'quantity', 'unit', 'price', 'cost', 'date', 'tick'];
         }
       },
       (err) => { alert(err.error); }

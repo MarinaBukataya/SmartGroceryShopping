@@ -15,7 +15,7 @@ import { CreateUpdateCustomerComponent } from '../create-update-customer/create-
 export class ConsumersTableComponent implements OnInit {
   consumer = new Consumer();
   consumersArray: any = new MatTableDataSource<Consumer>();
-  columnsToDisplay = ['name', 'password', 'updateConsumer', 'deleteConsumer'];
+  columnsToDisplay = ['position', 'name', 'password', 'updateConsumer', 'deleteConsumer'];
   public resultDialog: Consumer;
 
   constructor(public dialog: MatDialog, private adminService: AdminService, private authorizationService: AuthorizationService, private notificationService: NotificationService) { }
@@ -39,7 +39,6 @@ export class ConsumersTableComponent implements OnInit {
   }
 
   public updateConsumer(consumer: Consumer) {
-    console.log(consumer.id);
     this.openDialog(consumer);
   }
   openDialog(consumer: Consumer) {
