@@ -3,7 +3,7 @@
     <mat-nav-list class="dashboard">
       <a mat-list-item [routerLink]="['/admin']"><span class="material-icons">local_grocery_store</span> Grocery Lists
       </a>
-      <a mat-list-item [routerLink]="['/consumers']"><span class="material-icons">face</span> Consumers </a>
+      <a mat-list-item [routerLink]="['/consumers']"><span class="material-icons">face</span> Shoppers </a>
       <a mat-list-item [routerLink]="['/items']"><span class="material-icons">reorder</span> Items </a>
       <mat-divider></mat-divider>
       <a mat-list-item routerLink="/" (click)=logout()>
@@ -82,16 +82,20 @@
         <mat-grid-tile>
           <ng-container *ngIf="type.value === 'ALL'; else elseTemplate2">
             <div>
+              <br>
+              <br>
               <mat-title style="font-size:2vw;"> from
                 these categories </mat-title>
-              <br>
-              <br>
+              <br> 
+              <br>   
               <app-chart [doughnutChartLabels]="categoriesChartLabels" [doughnutChartData]="categoriesChartData">
               </app-chart>
             </div>
           </ng-container>
           <ng-template #elseTemplate2>
             <div>
+              <br>
+              <br>
               <mat-title style="font-size:2vw;"> Items distribution </mat-title>
               <br>
               <br>

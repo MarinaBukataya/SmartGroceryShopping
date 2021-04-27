@@ -1,7 +1,7 @@
 <mat-sidenav-container class="example-sidenav-container">
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
     <mat-nav-list class="dashboard">
-      <a mat-list-item [routerLink]="['/consumers']"><span class="material-icons">face</span> Consumers </a>
+      <a mat-list-item [routerLink]="['/consumers']"><span class="material-icons">face</span> Shoppers </a>
       <a mat-list-item [routerLink]="['/items']"><span class="material-icons">reorder</span> All items </a>
       <a mat-list-item [routerLink]="['/statistics']"><span class="material-icons">donut_small</span> Statistics </a>
       <mat-divider></mat-divider>
@@ -20,10 +20,11 @@
         <mat-datepicker #picker (monthSelected)="monthSelected($event)" startView="multi-year"></mat-datepicker>
       </mat-form-field>
 
-      <div class="example-button-container">
+      <div class="example-button-container"
+        matTooltip="{{consumers.length>0?'Create new list' : 'Please register a shopper to create a shopping list'}}"
+        [matTooltipPosition]="'right'" matTooltipClass="custom-tooltip-blue" [matTooltipDisabled]="isRed()">
         <button mat-fab color="warn" aria-label="Example icon button with a plus one icon"
-          [routerLink]="['/create-list']" [disabled]="isRed()" matTooltip="Create new list" [matTooltipPosition]="'right'"
-          matTooltipClass="custom-tooltip-blue">
+          [routerLink]="['/create-list']" [disabled]="isRed() || consumers.length==0">
           <mat-icon>add</mat-icon>
         </button>
       </div>

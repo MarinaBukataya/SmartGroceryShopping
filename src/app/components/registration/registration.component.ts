@@ -20,6 +20,7 @@ export class RegistrationComponent implements OnInit {
   passwordPattern = '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$';
   hide = true;
   matcher = new MyErrorStateMatcher();
+  showSpinner = false;
 
   constructor(private adminService: AdminService, private router: Router, private notificationService: NotificationService) { }
 
@@ -32,7 +33,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   signup() {
-
+    this.showSpinner = true;
     this.administrator.name = this.registrationForm.get('username').value;
     this.administrator.password = this.registrationForm.get('password').value;
     this.adminService.signup(this.administrator).subscribe(() => {

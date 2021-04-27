@@ -10,6 +10,8 @@ import { GroceryListStatus } from 'src/app/models/GroceryListStatus';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { NotificationService } from 'src/app/services/notification.service';
+import { Consumer } from 'src/app/models/Consumer';
 
 export const MY_FORMATS = {
   parse: {
@@ -40,6 +42,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   date = new FormControl();
   todayDate: Date = new Date();
   GroceryListStatus = GroceryListStatus;
+  consumers = [];
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatSort) sort: MatSort;
@@ -58,6 +61,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
         (err) => { alert(err.error); }
       )
     }, 1000);
+    this.adminService.getAllConsumers().subscribe(
+      (response) => { this.consumers = response as Consumer[]; },
+      (err) => { alert(err.error); }
+    )
   }
 
   ngAfterViewInit() {

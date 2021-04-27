@@ -31,7 +31,7 @@
         Price should be more than 0</mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="type === 'Update'">
-      <input matInput [(ngModel)]="item.date" name="date" [matDatepicker]="picker" min=todayDate ng-required="false" placeholder="Date">
+      <input matInput [(ngModel)]="item.date" name="date" [matDatepicker]="picker" min=todayDate ng-required="false" placeholder="Date" readonly>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
