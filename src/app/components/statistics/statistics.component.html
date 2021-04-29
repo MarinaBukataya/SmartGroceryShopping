@@ -44,6 +44,8 @@
         <mat-grid-tile>
           <ng-container *ngIf="type.value === 'ALL'; else elseTemplate1">
             <div>
+              <br>
+              <br>
               <mat-title style="font-size:2vw;"> on these items
               </mat-title>
               <br>
@@ -86,8 +88,8 @@
               <br>
               <mat-title style="font-size:2vw;"> from
                 these categories </mat-title>
-              <br> 
-              <br>   
+              <br>
+              <br>
               <app-chart [doughnutChartLabels]="categoriesChartLabels" [doughnutChartData]="categoriesChartData">
               </app-chart>
             </div>

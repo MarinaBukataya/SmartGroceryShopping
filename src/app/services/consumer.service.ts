@@ -9,6 +9,7 @@ import { LoginResponse } from '../models/LoginResponse';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ConsumerService {
   private BASE_URL = 'https://encoded-breaker-309609.ew.r.appspot.com/consumer'
   //private BASE_URL = 'http://localhost:8080/consumer';
@@ -20,19 +21,19 @@ export class ConsumerService {
   }
 
   public getCurrentMonthsGroceryLists(): Observable<any> {
-    return this.httpClient.get<any>(this.BASE_URL + '/get-currentmonth-grocerylists');
+    return this.httpClient.get<any>(this.BASE_URL + '/currentmonth-grocerylists');
   }
 
   public getOneGroceryList(groceryListId: number): Observable<any> {
-    return this.httpClient.get<any>(this.BASE_URL + '/get-onegrocerylist/' + groceryListId);
+    return this.httpClient.get<any>(this.BASE_URL + '/grocerylists/' + groceryListId);
   }
 
   public updateGroceryList(groceryList: GroceryList): Observable<any> {
-    return this.httpClient.put<any>(this.BASE_URL + '/update-grocerylist', groceryList);
+    return this.httpClient.put<any>(this.BASE_URL + '/grocerylists', groceryList);
   }
 
   public updateItem(item: Item): Observable<any> {
-    return this.httpClient.put<any>(this.BASE_URL + '/update-item', item);
+    return this.httpClient.put<any>(this.BASE_URL + '/items', item);
   }
 
   public logout(token: string): Observable<any> {
