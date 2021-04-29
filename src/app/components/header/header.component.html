@@ -1,9 +1,11 @@
 <mat-toolbar color="primary">
-
   <a *ngIf="router.url === '/registration' || router.url === '/login';else elseTemplate" [routerLink]="['/']"><span
-      style="font-family: Lobster; font-size:3vw;"> Smart Shopping </span></a>
+      style="font-family: 'Sacramento'; font-size: 3em;"> Smart Shopping </span></a>
+  <!-- <a *ngIf="router.url === '/registration' || router.url === '/login';else elseTemplate" [routerLink]="['/']"><span
+      style="font-family: Lobster; font-size:3vw;"> Smart Shopping </span></a> -->
   <ng-template #elseTemplate>
-    <span style="font-family: Lobster; font-size:3vw;"> Smart Shopping </span>
+    <span style="font-family: 'Sacramento'; font-size: 2em;"> Smart Shopping </span>
+    <!-- <span style="font-family: Lobster; font-size:3vw;"> Smart Shopping </span> -->
   </ng-template>
 
   <div class="spacer"></div>

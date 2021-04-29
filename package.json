@@ -25,6 +25,7 @@
     "@angular/router": "~11.2.7",
     "@expo-google-fonts/dm-serif-display": "^0.1.0",
     "@expo-google-fonts/lobster": "^0.1.0",
+    "@expo-google-fonts/sacramento": "^0.1.0",
     "@material/checkbox": "^10.0.0",
     "@material/data-table": "^10.0.0",
     "@material/fab": "^10.0.0",

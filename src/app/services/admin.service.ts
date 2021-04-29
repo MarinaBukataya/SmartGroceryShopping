@@ -18,7 +18,7 @@ export class AdminService {
   constructor(private httpClient: HttpClient) { }
 
   public signup(administrator: Administrator): Observable<any> {
-    return this.httpClient.post<any>(this.BASE_URL + '/administrator', administrator);
+    return this.httpClient.post<any>(this.BASE_URL + '/signup', administrator);
   }
 
   public login(loginDetails: LoginDetails): Observable<LoginResponse> {

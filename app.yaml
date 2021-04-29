@@ -1,15 +1,6 @@
 runtime: python27
 api_version: 1
 threadsafe: true
-
-resources:
-    cpu: 1
-    memory_gb: 2
-    disk_size_gb: 10
-
-libraries:
-- name: ssl
-  version: latest
   
 handlers:
 - url: /(.+\.js)
