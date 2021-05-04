@@ -10,17 +10,12 @@
 
 }
 
-div.image {
-  position: relative;
-  text-align: center;
-}
-
 div.content {
   height: calc(100% - 64px);
   //min-height: 100vh; // height of the browser viewport
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
   // position: absolute;
   // top: 40%;
   // left: 50%;
@@ -29,12 +24,28 @@ div.content {
   color: white;
   letter-spacing: 1px;
   line-height: 200%;
-  text-align: center;
-  width: 50%;
+  // text-align: center;
+  // width: 50%;
 }
 
 .aligned-with-icon {
   position: absolute;
   margin-top: 7px;
   margin-left: 7px;
+}
+
+.content ul {
+  height: 100%;                     /* take height of nav parent */
+  list-style-type: none;
+  padding-left: 0;                  /* remove default UL padding */
+  display: flex;
+  justify-content: space-around;    /* horizontal alignment (applies to child elements) */
+  align-items: center;              /* vertical alignment (applied to child elements) */
+}
+
+nav ul li {
+  /* display: inline-block;         <-- not necessary */
+  /* margin: 0 auto;                <-- not necessary */
+  padding: 10px;
+  // background-color: lightgreen;
 }
