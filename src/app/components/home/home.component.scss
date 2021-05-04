@@ -16,11 +16,16 @@ div.image {
 }
 
 div.content {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+  height: calc(100% - 64px);
+  //min-height: 100vh; // height of the browser viewport
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // position: absolute;
+  // top: 40%;
+  // left: 50%;
+  // margin-right: -50%;
+  // transform: translate(-50%, -50%);
   color: white;
   letter-spacing: 1px;
   line-height: 200%;
