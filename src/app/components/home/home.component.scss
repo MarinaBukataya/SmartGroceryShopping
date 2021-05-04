@@ -13,7 +13,6 @@
 div.image {
   position: relative;
   text-align: center;
-
 }
 
 div.content {
@@ -26,6 +25,7 @@ div.content {
   padding-right: 10%;
   color: white;
   //color: #142219;
+  text-align: center;
   letter-spacing: 1px;
   line-height: 150%;
 }
@@ -34,5 +34,14 @@ div.content {
   position: absolute;
   margin-top: 5px;
   margin-left: 5px;
-  /* optional */
+}
+
+ul {
+  margin: 0 auto;
+  text-align: center;
+}
+
+li {
+  list-style: none;
+  display: inline-block;
 }

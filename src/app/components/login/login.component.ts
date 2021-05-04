@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   hide = true;
   matcher = new MyErrorStateMatcher();
   passwordPattern = '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$';
+  showSpinner = false;
   constructor(private adminService: AdminService, private consumerService: ConsumerService, private authorizationService: AuthorizationService, private router: Router, private notificationService: NotificationService) {
 
   }
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
 
 
   public login(): void {
+    this.showSpinner = true;
     this.loginDetails.type = this.loginForm.get('usertype').value;
     this.loginDetails.name = this.loginForm.get('username').value;
     this.loginDetails.password = this.loginForm.get('password').value;
