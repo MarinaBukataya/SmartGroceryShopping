@@ -17,7 +17,6 @@ import { MY_FORMATS } from '../admin/admin.component';
   ]
 })
 export class StatisticsComponent implements OnInit {
-
   item = new Item();
   keys = [];
   category = Category;
@@ -27,7 +26,7 @@ export class StatisticsComponent implements OnInit {
   todayDate: Date = new Date();
   monthlyExpenses: number;
   monthlyExpensesByCategory: number;
-  displayedColumns: string[] = ['name', 'quantity', 'cost', 'date'];
+  displayedColumns: string[] = ['position','name', 'quantity', 'cost', 'date'];
   chartData = [];
   chartLabels = [];
 
@@ -49,6 +48,7 @@ export class StatisticsComponent implements OnInit {
     this.adminService.getMonthlyExpenses(year, month).subscribe(
       (response) => {
         this.monthlyExpenses = response.toFixed(2);
+        console.log(this.monthlyExpenses)
       },
       (err) => { alert(err.error); }
     )
@@ -159,6 +159,7 @@ export class StatisticsComponent implements OnInit {
               }
             });
             this.monthlyExpensesByCategory = this.items.map(i => i.cost).reduce((sum, val) => sum + val, 0);
+            console.log(this.monthlyExpensesByCategory)
           },
           (err) => { alert(err.error); });
     }

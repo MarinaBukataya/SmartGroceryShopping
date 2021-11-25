@@ -1,28 +1,23 @@
 .image {
-  height: 100%;
+  height: calc(100% - 64px);
   background-size: cover;
   width: auto;
   background-image:
-
     linear-gradient(rgba(black, 0.4), rgba(black, 0.4)),
     url("/../assets/Background.jpg");
   background-position: 50% 50%;
   color: white;
-  letter-spacing: 1px;
-  line-height: 200%;
+  font-size: 2rem;
+  
 }
 
-.content {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 40%;
+.mat-list-item{
+  color: white;
+  font-size: 35px;
+  line-height: 1.1;
 }
 
-.aligned-with-icon {
-  position: absolute;
-  margin-top: 7px;
-  margin-left: 7px;
-}
+
+
+
+

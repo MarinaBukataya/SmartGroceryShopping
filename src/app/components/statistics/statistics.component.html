@@ -1,82 +1,118 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
     <mat-nav-list class="dashboard">
-      <a mat-list-item [routerLink]="['/admin']"><span class="material-icons">local_grocery_store</span> Grocery Lists
+      <a mat-list-item [routerLink]="['/admin']"
+        ><span class="material-icons">local_grocery_store</span> Grocery Lists
       </a>
-      <a mat-list-item [routerLink]="['/consumers']"><span class="material-icons">face</span> Shoppers </a>
-      <a mat-list-item [routerLink]="['/items']"><span class="material-icons">reorder</span> Items </a>
+      <a mat-list-item [routerLink]="['/consumers']"
+        ><span class="material-icons">face</span> Shoppers
+      </a>
+      <a mat-list-item [routerLink]="['/items']"
+        ><span class="material-icons">reorder</span> Items
+      </a>
       <mat-divider></mat-divider>
-      <a mat-list-item routerLink="/" (click)=logout()>
+      <a mat-list-item routerLink="/" (click)="logout()">
         <mat-icon>logout</mat-icon> Log out
       </a>
     </mat-nav-list>
   </mat-sidenav>
 
   <div class="example-sidenav-content">
-    <p style="font-family: 'Sacramento'; font-size:3vw;display: inline-block; margin-top: 20px;">Statistics</p>
-    <div class="wrapper" fxLayout="row" fxLayoutAlign="space-around center">
+    <p
+      style="
+        font-family: 'Sacramento';
+        font-size: 3vw;
+        display: inline-block;
+        margin-top: 20px;
+      "
+    >
+      Statistics
+    </p>
+    <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Months" [formControl]="date" readonly>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Months"
+          [formControl]="date"
+          readonly
+        />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker (monthSelected)="monthSelected($event)" startView="multi-year"></mat-datepicker>
+        <mat-datepicker
+          #picker
+          (monthSelected)="monthSelected($event)"
+          startView="multi-year"
+        ></mat-datepicker>
       </mat-form-field>
       <ng-container *ngIf="type.value === 'ALL'; else elseTemplate">
-        <p style="font-size:2vw;"> In {{date.value | date: 'MMMM yyyy'}} you spent
-          {{ monthlyExpenses | currency}}
+        <p style="font-size: 2vw">
+          In {{ date.value | date: "MMMM yyyy" }} you spent
+          {{ monthlyExpenses | currency }}
         </p>
       </ng-container>
       <ng-template #elseTemplate>
-        <p style="font-size:2vw;"> In {{date.value | date: 'MMMM yyyy'}} you spent
-          {{ monthlyExpensesByCategory | currency}} on {{ type.value }}
+        <p style="font-size: 2vw">
+          In {{ date.value | date: "MMMM yyyy" }} you spent
+          {{ monthlyExpensesByCategory | currency }} on {{ type.value }}
         </p>
       </ng-template>
       <mat-form-field>
-        <mat-select (selectionChange)="categorySelected($event.value)" placeholder="Categories" [formControl]="type">
+        <mat-select
+          (selectionChange)="categorySelected($event.value)"
+          placeholder="Categories"
+          [formControl]="type"
+        >
           <mat-option [value]="'ALL'">ALL</mat-option>
-          <mat-option *ngFor="let key of keys" [value]="key">{{category[key]}}</mat-option>
+          <mat-option *ngFor="let key of keys" [value]="key">{{
+            category[key]
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-
-    <div class="grid-container" style="text-align:center;"
-      [hidden]="monthlyExpenses == 0 || monthlyExpensesByCategory == 0">
-      <mat-grid-list cols=" 2" rowHeight="400px">
+    <div [hidden]="monthlyExpenses == 0.0 || monthlyExpensesByCategory == 0.0">
+      <mat-grid-list cols="2" rowHeight="400px">
         <mat-grid-tile>
-          <ng-container *ngIf="type.value === 'ALL'; else elseTemplate1">
-            <div>
-              <br>
-              <br>
-              <mat-title style="font-size:2vw;"> on these items
-              </mat-title>
-              <br>
-              <br>
-              <app-chart [doughnutChartLabels]="chartLabels" [doughnutChartData]="chartData"></app-chart>
-            </div>
-          </ng-container>
+          <div>
+            <ng-container *ngIf="type.value === 'ALL'; else elseTemplate1">
+              <mat-header style="font-size: 2vw"> Items </mat-header>
+              <br />
+              <br />
+              <app-chart
+                [doughnutChartLabels]="chartLabels"
+                [doughnutChartData]="chartData"
+              ></app-chart>
+            </ng-container>
+          </div>
+
           <ng-template #elseTemplate1>
             <div>
-              <mat-title style="font-size:2vw;"> List of items </mat-title>
-              <br>
-              <br>
+              
               <table mat-table [dataSource]="items" class="mat-elevation-z8">
+                <ng-container matColumnDef="position">
+                  <th mat-header-cell *matHeaderCellDef> Num. </th>
+                  <td mat-cell *matCellDef="let item; let i = index">{{i + 1}}</td>
+                </ng-container>
                 <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Item </th>
-                  <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+                  <th mat-header-cell *matHeaderCellDef>Item</th>
+                  <td mat-cell *matCellDef="let item">{{ item.name }}</td>
                 </ng-container>
                 <ng-container matColumnDef="quantity">
-                  <th mat-header-cell *matHeaderCellDef> Quantity </th>
-                  <td mat-cell *matCellDef="let item"> {{item.quantity}} </td>
+                  <th mat-header-cell *matHeaderCellDef>Quantity</th>
+                  <td mat-cell *matCellDef="let item">{{ item.quantity }}</td>
                 </ng-container>
                 <ng-container matColumnDef="cost">
-                  <th mat-header-cell *matHeaderCellDef> Cost </th>
-                  <td mat-cell *matCellDef="let item"> {{item.cost}} </td>
+                  <th mat-header-cell *matHeaderCellDef>Cost</th>
+                  <td mat-cell *matCellDef="let item">{{ item.cost }}</td>
                 </ng-container>
                 <ng-container matColumnDef="date">
-                  <th mat-header-cell *matHeaderCellDef> Date </th>
-                  <td mat-cell *matCellDef="let item"> {{item.date}} </td>
+                  <th mat-header-cell *matHeaderCellDef>Date</th>
+                  <td mat-cell *matCellDef="let item">{{ item.date }}</td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
               </table>
             </div>
           </ng-template>
@@ -84,30 +120,27 @@
         <mat-grid-tile>
           <ng-container *ngIf="type.value === 'ALL'; else elseTemplate2">
             <div>
-              <br>
-              <br>
-              <mat-title style="font-size:2vw;"> from
-                these categories </mat-title>
-              <br>
-              <br>
-              <app-chart [doughnutChartLabels]="categoriesChartLabels" [doughnutChartData]="categoriesChartData">
+              <mat-header style="font-size: 2vw"> Categories </mat-header>
+              <br />
+              <br />
+              <app-chart
+                [doughnutChartLabels]="categoriesChartLabels"
+                [doughnutChartData]="categoriesChartData"
+              >
               </app-chart>
             </div>
           </ng-container>
           <ng-template #elseTemplate2>
             <div>
-              <br>
-              <br>
-              <mat-title style="font-size:2vw;"> Items distribution </mat-title>
-              <br>
-              <br>
-              <app-chart [doughnutChartLabels]="itemsPerCategoryChartLabels"
-                [doughnutChartData]="itemsPerCategoryChartData"></app-chart>
+              <mat-title style="font-size: 2vw"> Items distribution </mat-title>
+              <app-chart
+                [doughnutChartLabels]="itemsPerCategoryChartLabels"
+                [doughnutChartData]="itemsPerCategoryChartData"
+              ></app-chart>
             </div>
           </ng-template>
         </mat-grid-tile>
       </mat-grid-list>
-
     </div>
   </div>
 </mat-sidenav-container>

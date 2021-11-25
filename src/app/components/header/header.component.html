@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <a *ngIf="router.url === '/registration' || router.url === '/login';else elseTemplate" [routerLink]="['/']"><span
+  <a *ngIf="router.url === '/registration'|| router.url === '/login' ;else elseTemplate" [routerLink]="['/']"><span
       style="font-family: 'Sacramento'; font-size: 3em;"> Smart Shopping </span></a>
   <!-- <a *ngIf="router.url === '/registration' || router.url === '/login';else elseTemplate" [routerLink]="['/']"><span
       style="font-family: Lobster; font-size:3vw;"> Smart Shopping </span></a> -->
@@ -12,7 +12,7 @@
   <button class="extended-fab-button" style="width: 104.07px;" mat-fab [routerLink]="['/login']"
     *ngIf="router.url === '/'">Log In</button>
   <button class="extended-fab-button" mat-fab [routerLink]="['/registration']"
-    *ngIf="router.url === '/'">Register</button>
+    *ngIf="router.url === '/' || router.url === '/login'">Register</button>
   <button class="extended-fab-button" mat-fab routerLink="/"
     *ngIf="router.url === '/consumer' || router.url === '/create-list'"> Log Out </button>
 </mat-toolbar>
