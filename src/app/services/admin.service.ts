@@ -13,7 +13,7 @@ import { LoginResponse } from '../models/LoginResponse';
 })
 export class AdminService {
   //private BASE_URL = 'https://encoded-breaker-309609.ew.r.appspot.com/admin'
-  private BASE_URL = 'http://localhost:8080/admin'
+  private BASE_URL = 'https://fathomless-caverns-76467.herokuapp.com/admin'
 
   constructor(private httpClient: HttpClient) { }
 
