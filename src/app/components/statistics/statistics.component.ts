@@ -24,7 +24,7 @@ export class StatisticsComponent implements OnInit {
   date = new FormControl();
   type = new FormControl();
   todayDate: Date = new Date();
-  monthlyExpenses: number;
+  monthlyExpenses: string;
   monthlyExpensesByCategory: number;
   displayedColumns: string[] = ['position','name', 'quantity', 'cost', 'date'];
   chartData = [];
@@ -47,8 +47,7 @@ export class StatisticsComponent implements OnInit {
     const month = chosenDate.getMonth() + 1;
     this.adminService.getMonthlyExpenses(year, month).subscribe(
       (response) => {
-        this.monthlyExpenses = response.toFixed(2);
-        console.log(this.monthlyExpenses)
+        this.monthlyExpenses = response.toFixed(2);    
       },
       (err) => { alert(err.error); }
     )

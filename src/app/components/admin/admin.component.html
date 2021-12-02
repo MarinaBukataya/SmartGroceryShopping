@@ -56,13 +56,13 @@
           {{groceryList.status}} </td>
       </ng-container>
       <ng-container matColumnDef="consumerName">
-        <th mat-header-cell *matHeaderCellDef> Consumer Name </th>
+        <th mat-header-cell *matHeaderCellDef> Shopper </th>
         <td mat-cell *matCellDef="let groceryList"
           [ngClass]="isPastDate(groceryList.date) && groceryList.status === 'ACTIVE'?'red':'null'">
           {{groceryList.consumerName}} </td>
       </ng-container>
       <ng-container matColumnDef="shopName">
-        <th mat-header-cell *matHeaderCellDef> Shop Name </th>
+        <th mat-header-cell *matHeaderCellDef> Shop </th>
         <td mat-cell *matCellDef="let groceryList"
           [ngClass]="isPastDate(groceryList.date) && groceryList.status === 'ACTIVE'?'red':'null'">
           {{groceryList.shopName}} </td>

@@ -13,6 +13,7 @@ import { LoginResponse } from '../models/LoginResponse';
 export class ConsumerService {
   //private BASE_URL = 'https://encoded-breaker-309609.ew.r.appspot.com/consumer'
   private BASE_URL = 'https://fathomless-caverns-76467.herokuapp.com/consumer';
+  //private BASE_URL = 'http://localhost:8080/consumer';
 
   constructor(private httpClient: HttpClient) { }
 

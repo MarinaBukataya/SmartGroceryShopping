@@ -69,7 +69,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div [hidden]="monthlyExpenses == 0.0 || monthlyExpensesByCategory == 0.0">
+    <div [hidden]="monthlyExpenses === '0.00'">
       <mat-grid-list cols="2" rowHeight="400px">
         <mat-grid-tile>
           <div>
@@ -84,9 +84,8 @@
             </ng-container>
           </div>
 
-          <ng-template #elseTemplate1>
-            <div>
-              
+          <ng-template #elseTemplate1 >
+            <div [hidden]="monthlyExpensesByCategory === 0">          
               <table mat-table [dataSource]="items" class="mat-elevation-z8">
                 <ng-container matColumnDef="position">
                   <th mat-header-cell *matHeaderCellDef> Num. </th>
@@ -131,7 +130,7 @@
             </div>
           </ng-container>
           <ng-template #elseTemplate2>
-            <div>
+            <div [hidden]="monthlyExpensesByCategory === 0">
               <mat-title style="font-size: 2vw"> Items distribution </mat-title>
               <app-chart
                 [doughnutChartLabels]="itemsPerCategoryChartLabels"

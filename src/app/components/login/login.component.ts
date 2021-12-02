@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { LoginDetails } from 'src/app/models/LoginDetails';
@@ -10,16 +16,23 @@ import { ConsumerService } from 'src/app/services/consumer.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -28,18 +41,23 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   passwordPattern = '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$';
   showSpinner = false;
-  constructor(private adminService: AdminService, private consumerService: ConsumerService, private authorizationService: AuthorizationService, private router: Router, private notificationService: NotificationService) {
-
-  }
+  constructor(
+    private adminService: AdminService,
+    private consumerService: ConsumerService,
+    private authorizationService: AuthorizationService,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.pattern(this.passwordPattern)]),
-      usertype: new FormControl('', Validators.required)
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(this.passwordPattern),
+      ]),
+      usertype: new FormControl('', Validators.required),
     });
-
   }
-
 
   public login(): void {
     this.showSpinner = true;
@@ -47,24 +65,39 @@ export class LoginComponent implements OnInit {
     this.loginDetails.name = this.loginForm.get('username').value;
     this.loginDetails.password = this.loginForm.get('password').value;
     if (this.loginDetails.type === 'Administrator') {
-      this.adminService.login(this.loginDetails).subscribe(loginRes => {
-        let loginResponse: LoginResponse;
-        loginResponse = loginRes;
-        const token = loginResponse.token;
-        this.authorizationService.setToken(token);
-        this.router.navigate(['admin']);
-      },
-        (err) => { this.notificationService.error(err.error) });
+      this.adminService.login(this.loginDetails).subscribe(
+        (loginRes) => {
+          let loginResponse: LoginResponse;
+          loginResponse = loginRes;
+          const token = loginResponse.token;
+          this.authorizationService.setToken(token);
+          this.router.navigate(['admin']);
+        },
+        (err) => {
+          this.loginForm.get('usertype').setValue('');
+          this.loginForm.get('username').setValue('');
+          this.loginForm.get('password').setValue('');
+          this.showSpinner = false;
+          this.notificationService.error(err.error);
+        }
+      );
     } else {
-      this.consumerService.login(this.loginDetails).subscribe(loginRes => {
-        let loginResponse: LoginResponse;
-        loginResponse = loginRes;
-        const token = loginResponse.token;
-        this.authorizationService.setToken(token);
-        this.router.navigate(['consumer']);
-      },
-        (err) => { this.notificationService.error(err.error) });
+      this.consumerService.login(this.loginDetails).subscribe(
+        (loginRes) => {
+          let loginResponse: LoginResponse;
+          loginResponse = loginRes;
+          const token = loginResponse.token;
+          this.authorizationService.setToken(token);
+          this.router.navigate(['consumer']);
+        },
+        (err) => {
+          this.loginForm.get('usertype').setValue('');
+          this.loginForm.get('username').setValue('');
+          this.loginForm.get('password').setValue('');
+          this.showSpinner = false;
+          this.notificationService.error(err.error);
+        }
+      );
     }
   }
-
 }
